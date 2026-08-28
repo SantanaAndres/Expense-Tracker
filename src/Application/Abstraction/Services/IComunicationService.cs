@@ -2,5 +2,5 @@
 
 public interface IComunicationService
 {
-    
+    Task SendMessage();
 }

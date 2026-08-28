@@ -5,7 +5,7 @@ namespace Application.Abstraction.Repository;
 
 public interface IExpenseTypeRepository
 {
-    ExpenseType AddExpenseType(AddExpenseTypeDto expenseType);
-    ExpenseType ModifyExpenseTypeName(ModifyExpenseTypeDto expenseType);
-    List<ExpenseType> GetAllExpenseTypes();
+    Task<ExpenseType> AddExpenseType(AddExpenseTypeDto expenseType);
+    Task<ExpenseType> ModifyExpenseTypeName(ModifyExpenseTypeDto expenseType);
+    Task<List<ExpenseType>> GetAllExpenseTypes();
 }

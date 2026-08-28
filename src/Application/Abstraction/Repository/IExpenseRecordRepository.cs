@@ -4,5 +4,5 @@ namespace Application.Abstraction.Repository;
 
 public interface IExpenseRecordRepository
 {
-    ExpenseRecord AddExpenseRecord();
+    Task<ExpenseRecord> AddExpenseRecord();
 }

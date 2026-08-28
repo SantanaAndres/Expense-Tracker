@@ -5,5 +5,5 @@ namespace Application.Abstraction.Repository;
 
 public interface IFixedCostRepository
 {
-    FixedCost AddFixedCost(AddFixedCostDto fixedCost);
+    Task<FixedCost> AddFixedCost(AddFixedCostDto fixedCost);
 }

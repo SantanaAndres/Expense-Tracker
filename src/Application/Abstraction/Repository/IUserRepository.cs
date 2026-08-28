@@ -5,5 +5,5 @@ namespace Application.Abstraction.Repository;
 
 public interface IUserRepository
 {
-    User Add(AddUserDto user);
+    Task<User> Add(AddUserDto user);
 }
