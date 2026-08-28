@@ -5,6 +5,7 @@ namespace Domain.Entities;
 public class AmountExpenses
 {
     public int ExpenseTypeId { get; set; }
+    public bool IsActive { get; set; }
     public string? Description { get; set; }
     public Frequency Frequency { get; set; }
     public decimal Amount { get; set; }

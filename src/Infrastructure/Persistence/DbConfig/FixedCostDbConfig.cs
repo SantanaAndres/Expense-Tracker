@@ -15,13 +15,11 @@ public sealed class FixedCostDbConfig : IEntityTypeConfiguration<FixedCost>
             .HasDatabaseName("ix_fixed_costs_user_id")
             .HasMethod("btree");
 
-        builder.Property(cost => cost.IsActive)
-            .HasDefaultValue(true);
-
         builder.OwnsMany(cost => cost.AmountExpenses, owned =>
         {
             owned.ToJson("amount_expenses");
             owned.Property(amount => amount.ExpenseTypeId).IsRequired();
+            owned.Property(amount => amount.IsActive).HasDefaultValue(true);
             owned.Property(amount => amount.Description).HasMaxLength(500);
             owned.Property(amount => amount.Frequency)
                 .HasConversion<string>()
