@@ -1,6 +1,6 @@
 ﻿namespace Application.Abstraction.Services;
 
-public interface IComunicationService
+public interface ICommunicationService
 {
     Task SendMessage();
 }

@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services;
 
-public class EmailComunicationService: IComunicationService
+public class EmailCommunicationService: ICommunicationService
 {
     public Task SendMessage() => throw new NotImplementedException();
 }
