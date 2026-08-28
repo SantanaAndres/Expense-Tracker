@@ -15,6 +15,9 @@ public sealed class FixedCostDbConfig : IEntityTypeConfiguration<FixedCost>
             .HasDatabaseName("ix_fixed_costs_user_id")
             .HasMethod("btree");
 
+        builder.Property(cost => cost.IsActive)
+            .HasDefaultValue(true);
+
         builder.OwnsMany(cost => cost.AmountExpenses, owned =>
         {
             owned.ToJson("amount_expenses");
