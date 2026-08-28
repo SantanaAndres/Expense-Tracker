@@ -1,6 +1,12 @@
-﻿namespace Infrastructure.Persistence.Repositories;
+﻿using Application.Abstraction.Repository;
+using Application.Dto;
+using Domain.Entities;
 
-public class UserRepository
+namespace Infrastructure.Persistence.Repositories;
+
+public class UserRepository : IUserRepository
 {
-    
+    public Task<User> Add(AddUserDto user) => throw new NotImplementedException("UserRepository.Add");
+
+    public Task<User> ModifyUserPassword(ModifyUserPasswordDto user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
 }

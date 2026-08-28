@@ -1,6 +1,12 @@
-﻿namespace Infrastructure.Persistence.Repositories;
+﻿using Application.Abstraction.Repository;
+using Application.Dto;
+using Domain.Entities;
 
-public class FixedCostRepository
+namespace Infrastructure.Persistence.Repositories;
+
+public class FixedCostRepository : IFixedCostRepository
 {
-    
+    public Task<FixedCost> AddFixedCost(AddFixedCostDto fixedCost) => throw new NotImplementedException("FixedCostRepository.AddFixedCost");
+
+    public Task<FixedCost> ModifyFixedCostById(ModifyFixedCostByIdDto fixedCost) => throw new NotImplementedException("FixedCostRepository.ModifyFixedCostById");
 }
