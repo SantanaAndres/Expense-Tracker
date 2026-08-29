@@ -2,7 +2,7 @@
 
 public static class AddUserHandler
 {
-    public static Task HandleAsync(AddUserDto dto)
+    public static Task HandleAsync(AddUserCommand command)
     {
         return Task.CompletedTask;
     }

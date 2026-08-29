@@ -2,7 +2,7 @@
 
 namespace Application.Feature.User.AddUser;
 
-public class AddUserValidator : AbstractValidator<AddUserDto>
+public class AddUserValidator : AbstractValidator<AddUserCommand>
 {
     public AddUserValidator()
     {

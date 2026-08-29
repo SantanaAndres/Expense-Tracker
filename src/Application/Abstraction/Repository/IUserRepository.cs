@@ -7,7 +7,7 @@ namespace Application.Abstraction.Repository;
 
 public interface IUserRepository
 {
-    Task<User> Add(AddUserDto user);
+    Task<User> Add(AddUserCommand user);
 
     Task<User> ModifyUserPassword(ModifyUserPasswordDto user);
 }
