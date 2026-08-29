@@ -9,7 +9,7 @@ public interface IUserRepository
 {
     Task<User> Add(AddUserCommand user);
     
-    Task<User?> GetUserByEmail(string email);
+    Task<User?> CheckUserExistence(string email, string phoneNumber);
 
     Task<User> ModifyUserPassword(ModifyUserPasswordDto user);
 }

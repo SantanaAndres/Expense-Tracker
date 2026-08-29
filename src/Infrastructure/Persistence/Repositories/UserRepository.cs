@@ -10,7 +10,7 @@ public class UserRepository : IUserRepository
 {
     public async Task<User> Add(AddUserCommand user) => throw new NotImplementedException("UserRepository.Add");
 
-    public async Task<User?> GetUserByEmail(string email) => null;
+    public async Task<User?> CheckUserExistence(string email, string phoneNumber) => null;
 
     public async Task<User> ModifyUserPassword(ModifyUserPasswordDto user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
 }
