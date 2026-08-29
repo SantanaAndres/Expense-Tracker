@@ -1,5 +1,7 @@
 ﻿using Application.Abstraction.Repository;
 using Application.Dto;
+using Application.Feature.User.AddUser;
+using Application.Feature.User.UpdatePasswordUser;
 using Domain.Entities;
 
 namespace Infrastructure.Persistence.Repositories;

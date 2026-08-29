@@ -10,4 +10,13 @@
       <ProjectReference Include="..\Domain\Domain.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Feature\FixedCost\" />
+    </ItemGroup>
+
+    <ItemGroup>
+     <PackageReference Include="WolverineFx" Version="6.30.3" />
+     <PackageReference Include="FluentValidation" Version="11.12.0" />
+    </ItemGroup>
+
 </Project>
