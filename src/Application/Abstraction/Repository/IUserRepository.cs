@@ -11,5 +11,5 @@ public interface IUserRepository
     
     Task<User?> CheckUserExistence(string email, string phoneNumber);
 
-    Task<User> ModifyUserPassword(ModifyUserPasswordDto user);
+    Task<User> ModifyUserPassword(ModifyUserPasswordCommand user);
 }

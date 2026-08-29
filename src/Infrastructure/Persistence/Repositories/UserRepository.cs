@@ -12,5 +12,5 @@ public class UserRepository : IUserRepository
 
     public async Task<User?> CheckUserExistence(string email, string phoneNumber) => null;
 
-    public async Task<User> ModifyUserPassword(ModifyUserPasswordDto user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
+    public async Task<User> ModifyUserPassword(ModifyUserPasswordCommand user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
 }

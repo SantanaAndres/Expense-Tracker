@@ -13,6 +13,5 @@ public static class AddUserHandler
             throw new Exception("User already exists");
         
         await userRepository.Add(command);
-        
     }
 }
