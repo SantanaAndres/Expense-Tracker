@@ -1,3 +1,3 @@
 ﻿namespace Application.Feature.User.AddUser;
 
-public record AddUserCommand(string email, string password);
+public record AddUserCommand(string Email, string Password, string PhonerNumber);

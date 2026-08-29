@@ -15,9 +15,18 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.Email)
             .IsRequired()
             .HasMaxLength(320);
+        
+        builder.Property(user => user.PhoneNumber)
+            .IsRequired()
+            .HasMaxLength(15);
 
         builder.HasIndex(user => user.Email)
             .HasDatabaseName("ux_users_email")
+            .HasMethod("btree")
+            .IsUnique();
+        
+        builder.HasIndex(user => user.PhoneNumber)
+            .HasDatabaseName("ux_users_phonenumber")
             .HasMethod("btree")
             .IsUnique();
 

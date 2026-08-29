@@ -8,7 +8,9 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class UserRepository : IUserRepository
 {
-    public Task<User> Add(AddUserCommand user) => throw new NotImplementedException("UserRepository.Add");
+    public async Task<User> Add(AddUserCommand user) => throw new NotImplementedException("UserRepository.Add");
 
-    public Task<User> ModifyUserPassword(ModifyUserPasswordDto user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
+    public async Task<User?> GetUserByEmail(string email) => null;
+
+    public async Task<User> ModifyUserPassword(ModifyUserPasswordDto user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
 }

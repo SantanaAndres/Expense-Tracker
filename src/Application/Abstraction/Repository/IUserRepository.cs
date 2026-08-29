@@ -8,6 +8,8 @@ namespace Application.Abstraction.Repository;
 public interface IUserRepository
 {
     Task<User> Add(AddUserCommand user);
+    
+    Task<User?> GetUserByEmail(string email);
 
     Task<User> ModifyUserPassword(ModifyUserPasswordDto user);
 }
