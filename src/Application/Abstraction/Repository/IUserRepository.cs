@@ -7,6 +7,7 @@ namespace Application.Abstraction.Repository;
 
 public interface IUserRepository
 {
+    Task<User> GetUserById(int userId);
     Task<User> Add(AddUserCommand user);
     
     Task<User?> CheckUserExistence(string email, string phoneNumber);

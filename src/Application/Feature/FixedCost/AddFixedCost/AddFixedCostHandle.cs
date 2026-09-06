@@ -1,4 +1,4 @@
-﻿namespace Application.Dto;
+﻿namespace Application.Feature.FixedCost.AddFixedCost;
 
 public class AddFixedCostHandle
 {

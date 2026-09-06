@@ -1,6 +1,6 @@
 ﻿namespace ExpenseTrackerApi.Endpoint.Frequency;
 
-public class FrequencyEndpoint
+public static class FrequencyEndpoint
 {
     
 }
