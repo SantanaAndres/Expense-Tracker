@@ -1,4 +1,5 @@
 ﻿using Application.Dto;
+using Application.Feature.ExpenseRecord.Add;
 using Domain.Entities;
 
 namespace Application.Abstraction.Repository;

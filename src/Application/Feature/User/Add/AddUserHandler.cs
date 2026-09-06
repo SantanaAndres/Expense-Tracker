@@ -1,6 +1,6 @@
 ﻿using Application.Abstraction.Repository;
 
-namespace Application.Feature.User.AddUser;
+namespace Application.Feature.User.Add;
 
 public static class AddUserHandler
 {

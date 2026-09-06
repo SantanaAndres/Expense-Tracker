@@ -1,4 +1,6 @@
 ﻿using Application.Dto;
+using Application.Feature.ExpenseType.Add;
+using Application.Feature.ExpenseType.Update;
 using Domain.Entities;
 
 namespace Application.Abstraction.Repository;

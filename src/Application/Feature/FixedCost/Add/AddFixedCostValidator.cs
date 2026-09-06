@@ -2,7 +2,7 @@
 using Domain.Enum;
 using FluentValidation;
 
-namespace Application.Feature.FixedCost.AddFixedCost;
+namespace Application.Feature.FixedCost.Add;
 
 public class AddFixedCostValidator: AbstractValidator<AddFixedCostCommand>
 {

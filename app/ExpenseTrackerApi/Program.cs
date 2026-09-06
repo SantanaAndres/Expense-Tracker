@@ -1,4 +1,4 @@
-using Application.Feature.User.AddUser;
+using Application.Feature.User.Add;
 using Infrastructure;
 using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;

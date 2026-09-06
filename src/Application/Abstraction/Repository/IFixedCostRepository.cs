@@ -1,5 +1,6 @@
 ﻿using Application.Dto;
-using Application.Feature.FixedCost.AddFixedCost;
+using Application.Feature.FixedCost.Add;
+using Application.Feature.FixedCost.Update;
 using Domain.Entities;
 
 namespace Application.Abstraction.Repository;

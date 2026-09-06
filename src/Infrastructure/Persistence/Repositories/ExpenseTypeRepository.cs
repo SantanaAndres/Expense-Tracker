@@ -1,5 +1,7 @@
 using Application.Abstraction.Repository;
 using Application.Dto;
+using Application.Feature.ExpenseType.Add;
+using Application.Feature.ExpenseType.Update;
 using Domain.Entities;
 
 namespace Infrastructure.Persistence.Repositories;

@@ -1,5 +1,5 @@
 ﻿using Domain.Entities;
 
-namespace Application.Dto;
+namespace Application.Feature.FixedCost.Update;
 
 public record ModifyFixedCostByIdDto(int FixedCostId, List<AmountExpenses> AmountExpenses);
