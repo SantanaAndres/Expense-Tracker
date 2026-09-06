@@ -1,5 +1,6 @@
-﻿using Domain.Entities;
+﻿using Application.Dto.Request;
+using Domain.Entities;
 
 namespace Application.Feature.ExpenseRecord.Add;
 
-public record AddExpenseRecordCommand(int userId, AmountExpenses amountExpenses, DateTimeOffset date);
+public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
