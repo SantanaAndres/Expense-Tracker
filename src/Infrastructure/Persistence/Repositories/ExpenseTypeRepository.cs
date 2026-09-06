@@ -12,7 +12,7 @@ public class ExpenseTypeRepository : IExpenseTypeRepository
     public Task<ExpenseType> GetExpenseTypeByName(string expenseTypeName) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeByName");
     public Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.AddExpenseType");
 
-    public Task<ExpenseType> ModifyExpenseTypeName(ModifyExpenseTypeDto expenseType) => throw new NotImplementedException("ExpenseTypeRepository.ModifyExpenseTypeName");
+    public Task<ExpenseType> ModifyExpenseTypeName(ModifyExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.ModifyExpenseTypeName");
 
     public Task<List<ExpenseType>> GetAllExpenseTypes() => throw new NotImplementedException("ExpenseTypeRepository.GetAllExpenseTypes");
 }
