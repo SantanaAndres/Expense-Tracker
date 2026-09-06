@@ -9,9 +9,10 @@ public static class AddUserHandler
         IUserRepository userRepository
         )
     {
-        if (await userRepository.CheckUserExistence(command.Email, command.PhonerNumber) is {})
+        var userCheck = await userRepository.CheckUserExistence(command.Email, command.PhonerNumber);
+        if (userCheck != null)
             throw new Exception("User already exists");
         
-        await userRepository.Add(command);
+        await userRepository.AddAsync(command);
     }
 }
