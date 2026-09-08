@@ -1,4 +1,5 @@
-﻿using Wolverine.Http;
+﻿using Application.Dto.Response.ExpenseTypes;
+using Wolverine.Http;
 
 namespace ExpenseTrackerApi.Endpoint.ExpenseType;
 
@@ -8,7 +9,7 @@ public static class ExpenseTypeEndpoint
     [Tags("ExpenseTypes")]
     [EndpointSummary("Get all expense types")]
     [EndpointDescription("Get all expense types from DB")]
-    public static string GetAllAllowedExpensesTypes() => "Hola";
+    public static GetExpensesTypesResponse GetAllAllowedExpensesTypes() => throw new NotImplementedException();
     
     [WolverinePost("/add-expense-type")]
     [Tags("ExpenseTypes")]
