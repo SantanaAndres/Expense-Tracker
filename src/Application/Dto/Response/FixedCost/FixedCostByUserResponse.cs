@@ -2,7 +2,7 @@
 
 namespace Application.Dto.Response.FixedCost;
 
-public record GetAllFixedCostByUserResponse(
+public record FixedCostByUserResponse(
     int Id, 
     List<AmountExpensesRequest> AmountExpenses
     );
