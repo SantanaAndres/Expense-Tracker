@@ -18,4 +18,9 @@
      <PackageReference Include="WolverineFx.Http" Version="6.35.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Feature\ExpenseRecord\Get\" />
+      <Folder Include="Feature\ExpenseRecord\Update\" />
+    </ItemGroup>
+
 </Project>

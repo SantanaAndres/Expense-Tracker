@@ -5,7 +5,7 @@ using Domain.Entities;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class ExpenseTypeRepository : IExpenseTypeRepository
+public class ExpenseTypeRepository(ExpenseTrackerDbContext dbContext) : IExpenseTypeRepository
 {
     public Task<ExpenseType> GetExpenseTypeById(int expenseTypeId) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeById");
     public Task<ExpenseType> GetExpenseTypeByName(string expenseTypeName) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeByName");

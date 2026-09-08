@@ -6,7 +6,7 @@ using Domain.Entities;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class FixedCostRepository : IFixedCostRepository
+public class FixedCostRepository(ExpenseTrackerDbContext dbContext) : IFixedCostRepository
 {
     public Task<FixedCost> AddFixedCost(AddFixedCostCommand fixedCost) => throw new NotImplementedException("FixedCostRepository.AddFixedCost");
 
