@@ -9,5 +9,5 @@ public interface IFixedCostRepository
 {
     Task<FixedCost> AddFixedCost(AddFixedCostCommand fixedCost);
     
-    Task<FixedCost> ModifyFixedCostById(ModifyFixedCostByIdDto fixedCost);
+    Task<FixedCost> ModifyFixedCostById(UpdateFixedCostCommand fixedCost);
 }

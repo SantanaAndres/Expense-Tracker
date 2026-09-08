@@ -10,5 +10,5 @@ public class FixedCostRepository : IFixedCostRepository
 {
     public Task<FixedCost> AddFixedCost(AddFixedCostCommand fixedCost) => throw new NotImplementedException("FixedCostRepository.AddFixedCost");
 
-    public Task<FixedCost> ModifyFixedCostById(ModifyFixedCostByIdDto fixedCost) => throw new NotImplementedException("FixedCostRepository.ModifyFixedCostById");
+    public Task<FixedCost> ModifyFixedCostById(UpdateFixedCostCommand fixedCost) => throw new NotImplementedException("FixedCostRepository.ModifyFixedCostById");
 }
