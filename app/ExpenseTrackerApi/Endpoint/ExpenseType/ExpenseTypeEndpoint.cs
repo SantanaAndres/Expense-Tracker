@@ -15,11 +15,11 @@ public static class ExpenseTypeEndpoint
     [Tags("ExpenseTypes")]
     [EndpointSummary("Add new expense type")]
     [EndpointDescription("Add new expense type to DB")]
-    public static string AddNewExpenseType() => "Hola";
+    public static ExpenseTypeDataResponse AddNewExpenseType() => throw new NotImplementedException();
     
     [WolverinePut("/modify-expense-type")]
     [Tags("ExpenseTypes")]
     [EndpointSummary("Modify expense type")]
     [EndpointDescription("Modify expense type to DB")]
-    public static string ModifyExpenseType() => "Hola";
+    public static ExpenseTypeDataResponse ModifyExpenseType() => throw new NotImplementedException();
 }
