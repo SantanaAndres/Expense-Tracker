@@ -14,6 +14,10 @@ public sealed class ExpenseTypeConfiguration : IEntityTypeConfiguration<ExpenseT
         builder.Property(type => type.ExpenseName)
             .IsRequired()
             .HasMaxLength(100);
+        
+        builder.Property(type => type.IsActive)
+            .HasDefaultValue(true)
+            .IsRequired();
 
         builder.HasIndex(type => type.ExpenseName)
             .HasDatabaseName("ux_expense_types_name")

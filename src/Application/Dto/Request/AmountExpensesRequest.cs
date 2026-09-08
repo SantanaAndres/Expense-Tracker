@@ -1,6 +1,4 @@
-﻿using Domain.Enum;
-
-namespace Application.Dto.Request;
+﻿namespace Application.Dto.Request;
 
 public record AmountExpensesRequest(
     int ExpenseTypeId,
