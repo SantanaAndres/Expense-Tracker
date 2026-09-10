@@ -1,14 +1,17 @@
 ﻿using Application.Abstraction.Repository;
+using Application.Dto.Response.FixedCost;
+using Application.Helper;
 
 namespace Application.Feature.FixedCost.Update;
 
 public class UpdateFixedCostHandle
 {
-    public Task HandleAsync(
+    public async Task<FixedCostByUserResponse> HandleAsync(
         UpdateFixedCostCommand command,
         IFixedCostRepository fixedCostRepository
         )
     {
-        throw new NotImplementedException();
+        var result = await fixedCostRepository.ModifyFixedCostById(command);
+        return result.ToDto();
     }
 }
