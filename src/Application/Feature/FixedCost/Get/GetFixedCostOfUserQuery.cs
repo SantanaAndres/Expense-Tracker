@@ -1,3 +1,3 @@
 ﻿namespace Application.Feature.FixedCost.Get;
 
-public record GetFixedCostOfUserQuery();
+public record GetFixedCostOfUserQuery(int UserId);

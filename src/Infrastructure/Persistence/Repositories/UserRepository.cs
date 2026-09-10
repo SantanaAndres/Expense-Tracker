@@ -8,7 +8,10 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
 {
-    public async Task<User> GetUserById(int userId) => throw new NotImplementedException("UserRepository.GetUserById");
+    public async Task<User> GetUserById(int userId)
+    {
+        return await dbContext.Users.Where(user => user.UserId == userId).FirstOrDefaultAsync();
+    }
 
     public async Task<User> AddAsync(AddUserCommand user)
     {
