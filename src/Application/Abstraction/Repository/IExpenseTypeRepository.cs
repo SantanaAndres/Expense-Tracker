@@ -8,7 +8,7 @@ public interface IExpenseTypeRepository
 {
     Task<ExpenseType> GetExpenseTypeById(int expenseTypeId);
     Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType);
-    Task<ExpenseType> GetExpenseTypeByName(string expenseTypeName);
+    Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName);
     Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseType);
     Task<List<ExpenseType>> GetAllExpenseTypes();
 }

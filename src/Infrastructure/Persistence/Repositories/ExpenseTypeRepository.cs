@@ -8,7 +8,7 @@ namespace Infrastructure.Persistence.Repositories;
 public class ExpenseTypeRepository(ExpenseTrackerDbContext dbContext) : IExpenseTypeRepository
 {
     public Task<ExpenseType> GetExpenseTypeById(int expenseTypeId) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeById");
-    public Task<ExpenseType> GetExpenseTypeByName(string expenseTypeName) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeByName");
+    public Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeByName");
     public Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.AddExpenseType");
 
     public Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.ModifyExpenseType");
