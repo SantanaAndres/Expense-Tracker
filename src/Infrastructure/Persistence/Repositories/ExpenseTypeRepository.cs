@@ -2,16 +2,43 @@ using Application.Abstraction.Repository;
 using Application.Feature.ExpenseType.Add;
 using Application.Feature.ExpenseType.Update;
 using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
 
 public class ExpenseTypeRepository(ExpenseTrackerDbContext dbContext) : IExpenseTypeRepository
 {
-    public Task<ExpenseType> GetExpenseTypeById(int expenseTypeId) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeById");
-    public Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName) => throw new NotImplementedException("ExpenseTypeRepository.GetExpenseTypeByName");
-    public Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.AddExpenseType");
+    public async Task<ExpenseType> GetExpenseTypeById(int expenseTypeId)
+    {
+        return await dbContext.ExpenseTypes.Where(expense => expense.ExpenseTypeId == expenseTypeId).FirstOrDefaultAsync();
+    }
+    
+    public async Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName)
+    {
+        var values = await dbContext.ExpenseTypes.ToListAsync();
+        return values.Where(expense => expense.ExpenseName.Contains(expenseTypeName)).ToList();
+    }
 
-    public Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseType) => throw new NotImplementedException("ExpenseTypeRepository.ModifyExpenseType");
+    public async Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType)
+    {
+        var result =  await dbContext.ExpenseTypes.AddAsync(
+            new ExpenseType {
+                ExpenseName = expenseType.ExpenseTypeName
+        });
+        return result.Entity;
+    }
 
-    public Task<List<ExpenseType>> GetAllExpenseTypes() => throw new NotImplementedException("ExpenseTypeRepository.GetAllExpenseTypes");
+    public async Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseTypeCommand)
+    {
+        var expenseType = await dbContext.ExpenseTypes.FirstOrDefaultAsync(expense => expense.ExpenseTypeId == expenseTypeCommand.Id) ?? throw new Exception("ExpenseType not found");
+        expenseType.IsActive = expenseTypeCommand.IsActive;
+        expenseType.ExpenseName = expenseTypeCommand.ExpenseTypeName;
+        await dbContext.SaveChangesAsync();
+        return expenseType;
+    }
+
+    public async Task<List<ExpenseType>> GetAllExpenseTypes()
+    {
+        return await dbContext.ExpenseTypes.ToListAsync();
+    }
 }

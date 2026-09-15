@@ -1,5 +1,6 @@
 ﻿using Application.Abstraction.Repository;
 using Application.Dto.Response.ExpenseTypes;
+using Application.Helper;
 
 namespace Application.Feature.ExpenseType.Get.ByName;
 
@@ -12,10 +13,6 @@ public class GetExpenseTypesByNameHandle
     {
         var result = await expenseTypeRepository.GetExpenseTypeByName(query.searchTerm);
 
-        return result.Select(r => new ExpenseTypeDataResponse(
-                Id: r.ExpenseTypeId,
-                ExpenseTypeName: r.ExpenseName,
-                IsActive: r.IsActive)
-            ).ToList();
+        return result.Select(r => r.ToDto()).ToList();
     }
 }
