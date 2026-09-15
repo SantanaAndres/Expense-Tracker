@@ -1,4 +1,5 @@
 ﻿using Application.Feature.User.Add;
+using Application.Feature.User.Get;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
@@ -17,10 +18,14 @@ public static class UserEndpoint
         await bus.InvokeAsync(command);
         return Results.Ok();
     }
-    
+
     [WolverinePost("/login")]
     [Tags("User")]
     [EndpointSummary("Login user")]
     [EndpointDescription("Endpoint that allow the user to registry to the app")]
-    public static string LoginUser() => "Hola";
+    public static async Task<string> LoginUser([FromQuery] GetUserByEmailPasswordQuery query, IMessageBus bus)
+    {
+        await bus.InvokeAsync(query);
+        return "User logged in";
+    }
 }

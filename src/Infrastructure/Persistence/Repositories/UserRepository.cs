@@ -13,6 +13,11 @@ public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
         return await dbContext.Users.Where(user => user.UserId == userId).FirstOrDefaultAsync();
     }
 
+    public async Task<User> CheckUSerEmailAndPassword(string email, string password)
+    {
+        return await dbContext.Users.Where(user => user.Email == email && user.Password == password).FirstOrDefaultAsync();
+    }
+
     public async Task<User> AddAsync(AddUserCommand user)
     {
         var userResponse = await dbContext.Users.AddAsync(new ()
