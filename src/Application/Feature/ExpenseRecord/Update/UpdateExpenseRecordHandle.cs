@@ -1,4 +1,7 @@
+using Application.Abstraction.Repository;
 using Application.Dto.Request;
+using Application.Dto.Response.ExpenseRecord;
+using Application.Helper;
 
 namespace Application.Feature.ExpenseRecord.Update;
 
@@ -6,8 +9,13 @@ public record UpdateExpenseRecordCommand(int ExpenseRecordId, int UserId, Amount
 
 public class UpdateExpenseRecordHandle
 {
-    public Task HandleAsync(UpdateExpenseRecordCommand command)
+    public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command, IExpenseRecordRepository expenseRecordRepository)
     {
-        throw new NotImplementedException();
+        var result = await expenseRecordRepository.ModifyExpenseRecordById(command);
+        
+        return new ExpenseRecordResponse(
+            Id: result.ExpenseRecordId, 
+            AmountExpenses: result.AmountExpenses.ToRequest(), 
+            Date: result.Date);
     }
 }
