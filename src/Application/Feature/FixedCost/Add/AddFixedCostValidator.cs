@@ -4,7 +4,6 @@ using FluentValidation;
 
 namespace Application.Feature.FixedCost.Add;
 
-public record AddFixedCostCommand(int UserId, List<AmountExpensesRequest> AmountExpenses);
 
 public class AddFixedCostValidator: AbstractValidator<AddFixedCostCommand>
 {
