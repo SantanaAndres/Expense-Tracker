@@ -4,6 +4,8 @@ using Application.Helper;
 
 namespace Application.Feature.FixedCost.Get;
 
+public record GetFixedCostOfUserQuery(int UserId);
+
 public class GetFixedCostOfUserHandle
 {
     public async Task<List<FixedCostByUserResponse>> HandleAsync(
