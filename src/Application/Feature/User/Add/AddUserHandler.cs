@@ -2,6 +2,8 @@
 
 namespace Application.Feature.User.Add;
 
+public record AddUserCommand(string Email, string Password, string PhonerNumber);
+
 public static class AddUserHandler
 {
     public static async Task HandleAsync(

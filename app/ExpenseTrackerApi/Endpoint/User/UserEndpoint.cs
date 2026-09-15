@@ -1,4 +1,8 @@
-﻿using Wolverine.Http;
+﻿using Application.Feature.User.Add;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
+using Wolverine;
+using Wolverine.Http;
 
 namespace ExpenseTrackerApi.Endpoint.User;
 
@@ -8,7 +12,11 @@ public static class UserEndpoint
     [Tags("User")]
     [EndpointSummary("Registry new user")]
     [EndpointDescription("Endpoint that allow to register a new user")]
-    public static string RegistryNewUser() => "Hola";
+    public static async Task<IResult> RegistryNewUser(IMessageBus bus, [FromBody] AddUserCommand command)
+    {
+        await bus.InvokeAsync(command);
+        return Results.Ok();
+    }
     
     [WolverinePost("/login")]
     [Tags("User")]
