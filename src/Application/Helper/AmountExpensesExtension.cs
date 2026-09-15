@@ -11,7 +11,7 @@ public static class AmountExpensesExtension
             ExpenseTypeId: amountExpenses.ExpenseTypeId,
             IsActive: amountExpenses.IsActive,
             Description: amountExpenses.Description,
-            Frequency: amountExpenses.Frequency.ToString(),
+            Frequency: amountExpenses.FrequencyEnum.ToString(),
             Amount: amountExpenses.Amount
         );
     }

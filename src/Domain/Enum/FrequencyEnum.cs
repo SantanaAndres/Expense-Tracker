@@ -1,6 +1,6 @@
 ﻿namespace Domain.Enum;
 
-public enum Frequency
+public enum FrequencyEnum
 {
     Unforeseen,
     Daily, 

@@ -16,7 +16,7 @@ public class UpdateExpenseRecordValidator : AbstractValidator<UpdateExpenseRecor
 
     private static bool BeValidAmount(AmountExpensesRequest amountExpenses)
     {
-        bool isValid = !(amountExpenses is { Amount: <= 0 } || !Enum.TryParse<Frequency>(amountExpenses.Frequency, true, out var _));
+        bool isValid = !(amountExpenses is { Amount: <= 0 } || !Enum.TryParse<FrequencyEnum>(amountExpenses.Frequency, true, out var _));
         return isValid;
     }
 }

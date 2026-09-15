@@ -13,7 +13,7 @@ public static class AmountExpensesRequestExtension
             ExpenseTypeId = amountExpensesRequest.ExpenseTypeId,
             IsActive = amountExpensesRequest.IsActive,
             Description = amountExpensesRequest.Description,
-            Frequency = Enum.Parse<Frequency>(amountExpensesRequest.Frequency),
+            FrequencyEnum = Enum.Parse<FrequencyEnum>(amountExpensesRequest.Frequency),
             Amount = amountExpensesRequest.Amount
         };
     }
