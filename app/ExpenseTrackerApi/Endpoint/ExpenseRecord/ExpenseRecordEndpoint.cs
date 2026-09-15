@@ -1,4 +1,8 @@
 ﻿using Application.Dto.Response.ExpenseRecord;
+using Application.Feature.ExpenseRecord.Add;
+using Application.Feature.ExpenseRecord.Update;
+using Microsoft.AspNetCore.Mvc;
+using Wolverine;
 using Wolverine.Http;
 
 namespace ExpenseTrackerApi.Endpoint.ExpenseRecord;
@@ -9,11 +13,19 @@ public static class ExpenseRecordEndpoint
     [Tags("ExpenseRecord")]
     [EndpointSummary("Add new expense record")]
     [EndpointDescription("Endpoint that allow to add a new expense record")]
-    public static ExpenseRecordResponse AddNewExpenseRecord() => throw new NotImplementedException();
-    
+    public static async Task<ExpenseRecordResponse> AddNewExpenseRecord(IMessageBus bus, [FromBody] AddExpenseRecordCommand command)
+    {
+        var result = await bus.InvokeAsync<ExpenseRecordResponse>(command);
+        return result;
+    }
+
     [WolverinePut("/modify-expense-record")]
     [Tags("ExpenseRecord")]
     [EndpointSummary("Modify expense record")]
     [EndpointDescription("Endpoint that allow to modify an expense record")]
-    public static ExpenseRecordResponse ModifyExpenseRecord() => throw new NotImplementedException();
+    public static async Task<ExpenseRecordResponse> ModifyExpenseRecord(IMessageBus bus, [FromBody] UpdateExpenseRecordCommand command)
+    {
+        var result = await bus.InvokeAsync<ExpenseRecordResponse>(command);
+        return result;
+    }
 }
