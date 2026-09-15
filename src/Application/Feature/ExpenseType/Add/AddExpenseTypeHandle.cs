@@ -1,6 +1,10 @@
 ﻿using Application.Abstraction.Repository;
+using FluentValidation;
 
 namespace Application.Feature.ExpenseType.Add;
+
+public record AddExpenseTypeCommand(string ExpenseTypeName);
+
 
 public class AddExpenseTypeHandle
 {
@@ -9,6 +13,15 @@ public class AddExpenseTypeHandle
         IExpenseTypeRepository expenseTypeRepository
         )
     {
-        expenseTypeRepository.AddExpenseType(command);   
+        await expenseTypeRepository.AddExpenseType(command);   
+    }
+}
+
+
+public class AddExpenseTypeValidator: AbstractValidator<AddExpenseTypeCommand>
+{
+    public AddExpenseTypeValidator()
+    {
+        RuleFor(expenseType => expenseType.ExpenseTypeName).NotEmpty().WithMessage("Expense type name is required");
     }
 }
