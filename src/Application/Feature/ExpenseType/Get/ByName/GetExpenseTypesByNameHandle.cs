@@ -4,6 +4,8 @@ using Application.Helper;
 
 namespace Application.Feature.ExpenseType.Get.ByName;
 
+public record GetExpenseTypesByNameQuery(string searchTerm);
+
 public class GetExpenseTypesByNameHandle
 {
     public async Task<List<ExpenseTypeDataResponse>> HandleAsync(
