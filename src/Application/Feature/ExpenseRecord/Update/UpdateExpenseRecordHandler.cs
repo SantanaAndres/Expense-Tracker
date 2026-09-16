@@ -7,9 +7,9 @@ namespace Application.Feature.ExpenseRecord.Update;
 
 public record UpdateExpenseRecordCommand(int ExpenseRecordId, int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
 
-public class UpdateExpenseRecordHandler
+public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository)
 {
-    public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command, IExpenseRecordRepository expenseRecordRepository)
+    public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command)
     {
         var result = await expenseRecordRepository.ModifyExpenseRecordById(command);
         

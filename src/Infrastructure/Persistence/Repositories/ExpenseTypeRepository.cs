@@ -25,6 +25,8 @@ public class ExpenseTypeRepository(ExpenseTrackerDbContext dbContext) : IExpense
             new ExpenseType {
                 ExpenseName = expenseType.ExpenseTypeName
         });
+        
+        await dbContext.SaveChangesAsync();
         return result.Entity;
     }
 

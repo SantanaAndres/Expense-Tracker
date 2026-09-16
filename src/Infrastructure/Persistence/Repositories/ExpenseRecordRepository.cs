@@ -32,7 +32,7 @@ public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpen
 
     public async Task<ExpenseRecord> ModifyExpenseRecordById(UpdateExpenseRecordCommand expenseRecord)
     {
-        var result =  await dbContext.ExpenseRecords.FirstOrDefaultAsync(expense => expense.ExpenseRecordId == expenseRecord.ExpenseRecordId) ?? throw new Exception("ExpenseRecord not found");
+        var result =  await dbContext.ExpenseRecords.FirstOrDefaultAsync(expense => expense.ExpenseRecordId == expenseRecord.ExpenseRecordId);
         result.AmountExpenses = expenseRecord.AmountExpenses.ToEntity();
         result.Date = DateTimeOffset.UtcNow;
         await dbContext.SaveChangesAsync();

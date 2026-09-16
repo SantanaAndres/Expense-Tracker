@@ -1,4 +1,5 @@
 ﻿using Application.Abstraction.Repository;
+using Application.Dto.Response.ExpenseTypes;
 using FluentValidation;
 
 namespace Application.Feature.ExpenseType.Add;
@@ -6,14 +7,13 @@ namespace Application.Feature.ExpenseType.Add;
 public record AddExpenseTypeCommand(string ExpenseTypeName);
 
 
-public class AddExpenseTypeHandler
+public class AddExpenseTypeHandler(IExpenseTypeRepository expenseTypeRepository)
 {
-    public async Task HandleAsync(
-        AddExpenseTypeCommand command,
-        IExpenseTypeRepository expenseTypeRepository
-        )
+    public async Task<ExpenseTypeDataResponse> HandleAsync(AddExpenseTypeCommand command)
     {
-        await expenseTypeRepository.AddExpenseType(command);   
+        var result = await expenseTypeRepository.AddExpenseType(command);   
+        
+        return new ExpenseTypeDataResponse(result.ExpenseTypeId, result.ExpenseName, true);
     }
 }
 
