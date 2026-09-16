@@ -5,9 +5,9 @@ namespace Application.Feature.ExpenseRecord.Add;
 
 public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
 
-public class AddExpenseRecordHandle
+public class AddExpenseRecordHandle(IExpenseRecordRepository expenseRecordRepository)
 {
-    public async Task HandleAsync(AddExpenseRecordCommand command, IExpenseRecordRepository expenseRecordRepository)
+    public async Task HandleAsync(AddExpenseRecordCommand command)
     {
         await expenseRecordRepository.AddExpenseRecord(command);
     }
