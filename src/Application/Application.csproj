@@ -11,11 +11,15 @@
     </ItemGroup>
 
     <ItemGroup>
+     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.12">
+       <PrivateAssets>all</PrivateAssets>
+       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+     </PackageReference>
      <PackageReference Include="Serilog" Version="4.4.0" />
-     <PackageReference Include="WolverineFx" Version="6.35.0" />
+     <PackageReference Include="WolverineFx" Version="6.38.0" />
      <PackageReference Include="FluentValidation" Version="12.1.1" />
-     <PackageReference Include="WolverineFx.FluentValidation" Version="6.35.0" />
-     <PackageReference Include="WolverineFx.Http" Version="6.35.0" />
+     <PackageReference Include="WolverineFx.FluentValidation" Version="6.38.0" />
+     <PackageReference Include="WolverineFx.Http" Version="6.38.0" />
     </ItemGroup>
 
     <ItemGroup>

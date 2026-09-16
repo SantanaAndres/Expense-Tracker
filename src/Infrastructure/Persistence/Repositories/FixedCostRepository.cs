@@ -24,7 +24,7 @@ public class FixedCostRepository(ExpenseTrackerDbContext dbContext) : IFixedCost
         var result = await dbContext.FixedCosts.AddAsync(entity);
         await dbContext.SaveChangesAsync();
         return result.Entity;
-    }
+    } 
 
     public async Task<FixedCost> ModifyFixedCostById(UpdateFixedCostCommand fixedCost)
     {

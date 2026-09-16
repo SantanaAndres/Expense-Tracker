@@ -24,7 +24,6 @@ public sealed class ExpenseRecordConfiguration : IEntityTypeConfiguration<Expens
             owned.ToJson("amount_expenses");
             owned.Property(amount => amount.ExpenseTypeId).IsRequired();
             owned.Property(amount => amount.Description).HasMaxLength(500);
-            owned.Property(amount => amount.IsActive).HasDefaultValue(true);
             owned.Property(amount => amount.FrequencyEnum)
                 .HasConversion<string>()
                 .HasMaxLength(20)
