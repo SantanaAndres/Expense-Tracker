@@ -6,9 +6,9 @@ namespace Application.Feature.ExpenseType.Update;
 
 public record ModifyExpenseTypeCommand(int Id, string ExpenseTypeName, bool IsActive);
 
-public class ModifyExpenseTypeHandle
+public class ModifyExpenseTypeHandle(IExpenseTypeRepository expenseTypeRepository)
 {
-    public async Task HandleAsync(ModifyExpenseTypeCommand command, IExpenseTypeRepository expenseTypeRepository)
+    public async Task HandleAsync(ModifyExpenseTypeCommand command)
     {
         var expenseType = await expenseTypeRepository.GetExpenseTypeById(command.Id);
         
