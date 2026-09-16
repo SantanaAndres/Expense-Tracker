@@ -6,7 +6,7 @@ namespace Application.Feature.ExpenseType.Update;
 
 public record ModifyExpenseTypeCommand(int Id, string ExpenseTypeName, bool IsActive);
 
-public class ModifyExpenseTypeHandle(IExpenseTypeRepository expenseTypeRepository)
+public class ModifyExpenseTypeHandler(IExpenseTypeRepository expenseTypeRepository)
 {
     public async Task HandleAsync(ModifyExpenseTypeCommand command)
     {

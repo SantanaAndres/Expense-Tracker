@@ -7,7 +7,7 @@ namespace Application.Feature.FixedCost.Update;
 
 public record UpdateFixedCostCommand(int FixedCostId, List<AmountExpensesRequest> AmountExpenses);
 
-public class UpdateFixedCostHandle
+public class UpdateFixedCostHandler
 {
     public async Task<FixedCostByUserResponse> HandleAsync(
         UpdateFixedCostCommand command,

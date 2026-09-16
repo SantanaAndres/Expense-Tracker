@@ -8,7 +8,7 @@ namespace Application.Feature.FixedCost.Add;
 
 public record AddFixedCostCommand(int UserId, List<AmountExpensesRequest> AmountExpenses);
 
-public class AddFixedCostHandle(IFixedCostRepository fixedCostRepository, IUserRepository userRepository)
+public class AddFixedCostHandler(IFixedCostRepository fixedCostRepository, IUserRepository userRepository)
 {
     public async Task<FixedCostByUserResponse> HandleAsync(AddFixedCostCommand command)
     {

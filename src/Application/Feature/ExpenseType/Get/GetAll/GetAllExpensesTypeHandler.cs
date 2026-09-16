@@ -5,7 +5,7 @@ namespace Application.Feature.ExpenseType.Get.GetAll;
 
 public record GetAllExpensesTypeQuery;
 
-public class GetAllExpensesTypeHandle
+public class GetAllExpensesTypeHandler
 {
     public async Task<List<ExpenseTypeDataResponse>> HandleAsync(GetAllExpensesTypeQuery query, IExpenseTypeRepository expenseTypeRepository)
     {

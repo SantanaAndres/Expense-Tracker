@@ -6,7 +6,7 @@ namespace Application.Feature.ExpenseType.Get.ByName;
 
 public record GetExpenseTypesByNameQuery(string searchTerm);
 
-public class GetExpenseTypesByNameHandle
+public class GetExpenseTypesByNameHandler
 {
     public async Task<List<ExpenseTypeDataResponse>> HandleAsync(
         GetExpenseTypesByNameQuery query,

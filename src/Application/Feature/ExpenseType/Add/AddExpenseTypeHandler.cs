@@ -6,7 +6,7 @@ namespace Application.Feature.ExpenseType.Add;
 public record AddExpenseTypeCommand(string ExpenseTypeName);
 
 
-public class AddExpenseTypeHandle
+public class AddExpenseTypeHandler
 {
     public async Task HandleAsync(
         AddExpenseTypeCommand command,

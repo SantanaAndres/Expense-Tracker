@@ -6,7 +6,7 @@ namespace Application.Feature.ExpenseRecord.Get;
 
 public record GetExpenseRecordByUserIdQuery(int UserId);
 
-public class GetExpenseRecordByUserIdHandle
+public class GetExpenseRecordByUserIdHandler
 {
     public async Task<List<ExpenseRecordResponse>> HandleAsync(GetExpenseRecordByUserIdQuery query, IExpenseRecordRepository expenseTypeRepository)
     {
