@@ -1,4 +1,5 @@
 ﻿using Application.Abstraction.Repository;
+using Application.Helper.Exceptions;
 using FluentValidation;
 
 namespace Application.Feature.ExpenseType.Update;
@@ -9,6 +10,10 @@ public class ModifyExpenseTypeHandle
 {
     public async Task HandleAsync(ModifyExpenseTypeCommand command, IExpenseTypeRepository expenseTypeRepository)
     {
+        var expenseType = await expenseTypeRepository.GetExpenseTypeById(command.Id);
+        
+        if (expenseType == null) throw new NotFoundException("ExpenseType not found");
+        
         await expenseTypeRepository.ModifyExpenseType(command);
     }
 }
