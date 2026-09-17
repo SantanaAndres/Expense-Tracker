@@ -9,6 +9,11 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class FixedCostRepository(ExpenseTrackerDbContext dbContext) : IFixedCostRepository
 {
+    public async Task<FixedCost> GetFixedCostById(int fixedCostId)
+    {
+        return await dbContext.FixedCosts.Where(f => f.FixedCostId == fixedCostId).FirstOrDefaultAsync();
+    }
+    
     public async Task<List<FixedCost>> GetFixedCostsByUserId(int userId)
     {
         return await dbContext.FixedCosts.Where(f => f.UserId == userId).ToListAsync();

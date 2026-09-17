@@ -6,6 +6,7 @@ namespace Application.Abstraction.Repository;
 
 public interface IFixedCostRepository
 {
+    Task<FixedCost> GetFixedCostById(int fixedCostId);
     Task<List<FixedCost>> GetFixedCostsByUserId(int userId);
     Task<FixedCost> AddFixedCost(AddFixedCostCommand fixedCost);
     
