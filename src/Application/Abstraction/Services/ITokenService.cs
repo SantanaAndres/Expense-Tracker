@@ -1,6 +1,8 @@
-﻿namespace Application.Abstraction.Services;
+﻿using Application.Dto.Request;
+
+namespace Application.Abstraction.Services;
 
 public interface ITokenService
 {
-    public string GenerateToken(string username);
+    public string GenerateToken(GenerateUserTokenDto user);
 }
