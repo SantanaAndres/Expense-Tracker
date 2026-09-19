@@ -1,5 +1,6 @@
 using Application.Abstraction.Repository;
 using Application.Feature.User.Add;
+using ExpenseTrackerApi.Extension;
 using ExpenseTrackerApi.MiddleWare;
 using Infrastructure;
 using Infrastructure.Persistence;
@@ -11,6 +12,8 @@ using Wolverine.Http;
 using Wolverine.Http.FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCustomJwtAuthentication(builder.Configuration);
 
 builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
@@ -38,7 +41,9 @@ builder.Services.AddInfraestructuraBackend();
 
 var app = builder.Build();
 
+app.UseHttpsRedirection();
 app.UseExceptionHandler();
+app.UseCustomAuthentication(); 
 
 app.MapOpenApi();
 app.MapScalarApiReference();
