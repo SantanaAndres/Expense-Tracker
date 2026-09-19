@@ -25,7 +25,9 @@ public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpen
                 AmountExpenses = expenseRecord.AmountExpenses.ToEntity(),
                 Date = DateTimeOffset.UtcNow
             }
-            );
+        );
+        
+        await dbContext.SaveChangesAsync();
         
         return result.Entity;
     }
