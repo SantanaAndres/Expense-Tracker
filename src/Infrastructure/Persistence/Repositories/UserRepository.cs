@@ -31,5 +31,10 @@ public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
         return await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email || user.PhoneNumber == phoneNumber);
     }
 
-    public async Task<User> ModifyUserPassword(ModifyUserPasswordCommand user) => throw new NotImplementedException("UserRepository.ModifyUserPassword");
+    public async Task<int> ModifyUserPassword(int userId, string password)
+    {
+        return await dbContext.Users
+            .Where(u => u.UserId == userId)
+            .ExecuteUpdateAsync(s => s.SetProperty(u => u.Password, password));
+    }
 }

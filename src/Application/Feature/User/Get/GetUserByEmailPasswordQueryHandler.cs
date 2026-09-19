@@ -4,7 +4,7 @@ namespace Application.Feature.User.Get;
 
 public record GetUserByEmailPasswordQuery(string Email, string Password);
 
-public class GetUserByEmailPasswordQueryHandle
+public class GetUserByEmailPasswordQueryHandler
 {
     public async Task HandleAsync(GetUserByEmailPasswordQuery query, IUserRepository userRepository)
     {
