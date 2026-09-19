@@ -12,5 +12,5 @@ public interface IUserRepository
     
     Task<int> ModifyUserPassword(int id, string password);
     
-    Task<User> CheckUSerEmailAndPassword(string email, string password);
+    Task<User> CheckUSerEmailAndPassword(string email);
 }
