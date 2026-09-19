@@ -8,7 +8,7 @@ public interface IUserRepository
 {
     Task<User> GetUserById(int userId);
     
-    Task<User> AddAsync(AddUserCommand user);
+    Task<User> AddAsync(User user);
     
     Task<User?> CheckUserExistence(string email, string phoneNumber);
     

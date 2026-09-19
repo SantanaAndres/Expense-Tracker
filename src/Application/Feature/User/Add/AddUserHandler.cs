@@ -15,6 +15,15 @@ public static class AddUserHandler
         if (userCheck != null)
             throw new Exception("User already exists");
         
-        await userRepository.AddAsync(command);
+        string passwordHash = BCrypt.Net.BCrypt.HashPassword(command.Password);
+
+        Domain.Entities.User newUser = new()
+        {
+            Email = command.Email,
+            Password = passwordHash,
+            PhoneNumber = command.PhonerNumber
+        };
+        
+        await userRepository.AddAsync(newUser);
     }
 }

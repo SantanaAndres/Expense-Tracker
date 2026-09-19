@@ -18,14 +18,9 @@ public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
         return await dbContext.Users.Where(user => user.Email == email && user.Password == password).FirstOrDefaultAsync();
     }
 
-    public async Task<User> AddAsync(AddUserCommand user)
+    public async Task<User> AddAsync(User newUser)
     {
-        var userResponse = await dbContext.Users.AddAsync(new ()
-        {
-            Email = user.Email,
-            Password = user.Password,
-            PhoneNumber = user.PhonerNumber
-        });
+        var userResponse = await dbContext.Users.AddAsync(newUser);
         await dbContext.SaveChangesAsync();
         
         return userResponse.Entity;
