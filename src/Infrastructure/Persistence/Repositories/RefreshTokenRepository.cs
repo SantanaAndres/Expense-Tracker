@@ -22,12 +22,14 @@ public class RefreshTokenRepository(ExpenseTrackerDbContext dbContext): IRefresh
         return result.Entity;
     }
     
-    public async Task RevokeAsync(int id, CancellationToken cancellationToken)
+    public async Task<RefreshToken> RevokeAsync(int id, CancellationToken cancellationToken)
     {
         var refreshToken = await dbContext.RefreshTokens.Where(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
         
         refreshToken.IsRevoked = true;
         
         await dbContext.SaveChangesAsync(cancellationToken);
+
+        return refreshToken;
     }
 }

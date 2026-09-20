@@ -7,6 +7,6 @@ public interface IRefreshTokenRepository
 {
     Task<RefreshToken> AddAsync(AddRefreshTokenDto refreshTokenDto, CancellationToken cancellationToken);
     
-    Task RevokeAsync(int id, CancellationToken cancellationToken);
+    Task<RefreshToken> RevokeAsync(int id, CancellationToken cancellationToken);
     
 }
