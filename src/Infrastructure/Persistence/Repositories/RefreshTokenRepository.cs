@@ -8,6 +8,11 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class RefreshTokenRepository(ExpenseTrackerDbContext dbContext): IRefreshTokenRepository
 {
+    public async Task<RefreshToken> GetTokenAsync(string token, CancellationToken cancellationToken)
+    {
+        return await dbContext.RefreshTokens.Where(x => x.Token == token).FirstOrDefaultAsync(cancellationToken);
+    }
+    
     public async Task<RefreshToken> AddAsync(AddRefreshTokenDto refreshTokenDto, CancellationToken cancellationToken)
     {
         RefreshToken refreshToken = new RefreshToken()
