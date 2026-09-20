@@ -23,10 +23,6 @@ public sealed class FixedCostDbConfig : IEntityTypeConfiguration<FixedCost>
             .Property(f => f.UserId)
             .HasColumnName("user_id");
         
-        builder
-            .Property(f => f.AmountExpenses)
-            .HasColumnName("amount_expenses");
-        
         builder.OwnsMany(cost => cost.AmountExpenses, owned =>
         {
             owned.ToJson("amount_expenses");
