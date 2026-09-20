@@ -8,4 +8,6 @@ public class User
     public string PhoneNumber { get; set; }
     public virtual IList<ExpenseRecord> ExpenseRecords { get; set; } =  new List<ExpenseRecord>();
     public virtual IList<FixedCost> FixedCosts { get; set; } =  new List<FixedCost>();
+    
+    public virtual IList<RefreshToken> RefreshTokens { get; set; } = new List<RefreshToken>();
 }
