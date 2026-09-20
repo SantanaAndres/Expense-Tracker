@@ -8,24 +8,30 @@ public class RefreshTokenConfiguration: IEntityTypeConfiguration<RefreshToken>
 {
     public void Configure(EntityTypeBuilder<RefreshToken> builder)
     {
+        builder.ToTable("refresh_tokens");
         
-        builder.HasIndex(r => r.Id);
-        
-        builder
-            .HasKey(r => r.Id)
-            .HasName("refresh_token_pk");
+        builder.HasKey(r => r.Id);
 
         builder.Property(r => r.Id)
             .HasColumnName("id");
 
-        builder
-            .Property(r => r.ExpiryDate)
-            .HasColumnName("expiry_date")
-            .HasDefaultValue(DateTime.UtcNow.AddDays(30));
-        
+        builder.Property(r => r.UserId)
+            .HasColumnName("user_id")
+            .IsRequired();
+
         builder
             .Property(r => r.Token)
             .HasColumnName("token")
+            .IsRequired();
+
+        builder.HasIndex(r => r.Token)
+            .IsUnique()
+            .HasDatabaseName("ux_refresh_tokens_token");
+
+        builder
+            .Property(r => r.ExpiryDate)
+            .HasColumnName("expiry_date")
+            .HasColumnType("timestamp with time zone")
             .IsRequired();
         
         builder
@@ -36,6 +42,12 @@ public class RefreshTokenConfiguration: IEntityTypeConfiguration<RefreshToken>
         builder
             .Property(r => r.CreatedDate)
             .HasColumnName("created_date")
-            .HasDefaultValueSql("GETDATE()");
+            .HasColumnType("timestamp with time zone")
+            .HasDefaultValueSql("NOW()");
+
+        builder.HasOne(r => r.User)
+            .WithMany(u => u.RefreshTokens)
+            .HasForeignKey(r => r.UserId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
