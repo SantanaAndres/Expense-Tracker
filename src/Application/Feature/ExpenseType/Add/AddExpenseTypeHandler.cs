@@ -9,9 +9,9 @@ public record AddExpenseTypeCommand(string ExpenseTypeName);
 
 public class AddExpenseTypeHandler(IExpenseTypeRepository expenseTypeRepository)
 {
-    public async Task<ExpenseTypeDataResponse> HandleAsync(AddExpenseTypeCommand command)
+    public async Task<ExpenseTypeDataResponse> HandleAsync(AddExpenseTypeCommand command, CancellationToken cancellationToken)
     {
-        var result = await expenseTypeRepository.AddExpenseType(command);   
+        var result = await expenseTypeRepository.AddExpenseType(command, cancellationToken);   
         
         return new ExpenseTypeDataResponse(result.ExpenseTypeId, result.ExpenseName, true);
     }

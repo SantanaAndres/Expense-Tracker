@@ -8,9 +8,9 @@ public record GetExpenseRecordByUserIdQuery(int UserId);
 
 public class GetExpenseRecordByUserIdHandler
 {
-    public async Task<List<ExpenseRecordResponse>> HandleAsync(GetExpenseRecordByUserIdQuery query, IExpenseRecordRepository expenseTypeRepository)
+    public async Task<List<ExpenseRecordResponse>> HandleAsync(GetExpenseRecordByUserIdQuery query, IExpenseRecordRepository expenseTypeRepository, CancellationToken cancellationToken)
     {
-        var result = await expenseTypeRepository.GetExpenseRecordsByUserId(query.UserId);
+        var result = await expenseTypeRepository.GetExpenseRecordsByUserId(query.UserId, cancellationToken);
 
         return result.Select(
             r => 

@@ -28,6 +28,13 @@ public static class AuthenticationExtensions
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey!))
             };
         });
+        
+        services.AddAuthorization(options =>
+        {
+            options.FallbackPolicy = new Microsoft.AspNetCore.Authorization.AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+        });
             
         return services;
     }
@@ -36,6 +43,7 @@ public static class AuthenticationExtensions
     {
         app.UseAuthentication();
         app.UseAuthorization();
+        
         return app;
     }
 }

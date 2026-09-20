@@ -12,15 +12,15 @@ public class GetFixedCostOfUserHandler(
     IUserRepository userRepository
     )
 {
-    public async Task<List<FixedCostByUserResponse>> Handle(GetFixedCostOfUserQuery query)
+    public async Task<List<FixedCostByUserResponse>> Handle(GetFixedCostOfUserQuery query, CancellationToken cancellationToken)
     {
         
-        var user = await userRepository.GetUserById(query.UserId);
+        var user = await userRepository.GetUserById(query.UserId, cancellationToken);
         
         if (user == null)
             throw new NotFoundException("That user doesn't exist");
         
-        var result = await fixedCostRepository.GetFixedCostsByUserId(query.UserId);
+        var result = await fixedCostRepository.GetFixedCostsByUserId(query.UserId, cancellationToken);
          
         return result
             .Select(

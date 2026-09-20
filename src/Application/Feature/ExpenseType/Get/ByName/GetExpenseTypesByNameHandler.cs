@@ -10,10 +10,11 @@ public class GetExpenseTypesByNameHandler
 {
     public async Task<List<ExpenseTypeDataResponse>> HandleAsync(
         GetExpenseTypesByNameQuery query,
-        IExpenseTypeRepository expenseTypeRepository
+        IExpenseTypeRepository expenseTypeRepository,
+        CancellationToken cancellationToken
         )
     {
-        var result = await expenseTypeRepository.GetExpenseTypeByName(query.searchTerm);
+        var result = await expenseTypeRepository.GetExpenseTypeByName(query.searchTerm, cancellationToken);
 
         return result.Select(r => r.ToDto()).ToList();
     }

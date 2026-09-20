@@ -10,13 +10,13 @@ public record AddFixedCostCommand(int UserId, List<AmountExpensesRequest> Amount
 
 public class AddFixedCostHandler(IFixedCostRepository fixedCostRepository, IUserRepository userRepository)
 {
-    public async Task<FixedCostByUserResponse> HandleAsync(AddFixedCostCommand command)
+    public async Task<FixedCostByUserResponse> HandleAsync(AddFixedCostCommand command, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetUserById(command.UserId);
+        var user = await userRepository.GetUserById(command.UserId, cancellationToken);
         
         if(user == null) throw new NotFoundException("User not found");
         
-        var result = await fixedCostRepository.AddFixedCost(command);
+        var result = await fixedCostRepository.AddFixedCost(command, cancellationToken);
         
         return result.ToDto();
     }

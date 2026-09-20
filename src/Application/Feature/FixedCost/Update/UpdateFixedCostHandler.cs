@@ -12,15 +12,16 @@ public class UpdateFixedCostHandler
 {
     public async Task<FixedCostByUserResponse> HandleAsync(
         UpdateFixedCostCommand command,
-        IFixedCostRepository fixedCostRepository
+        IFixedCostRepository fixedCostRepository,
+        CancellationToken cancellationToken
         )
     {
-        var fixedCost = await fixedCostRepository.GetFixedCostById(command.FixedCostId);
+        var fixedCost = await fixedCostRepository.GetFixedCostById(command.FixedCostId, cancellationToken);
 
         if (fixedCost is null)
             throw new NotFoundException("FixedCost not found");
         
-        var result = await fixedCostRepository.ModifyFixedCostById(command);
+        var result = await fixedCostRepository.ModifyFixedCostById(command, cancellationToken);
         return result.ToDto();
     }
 }

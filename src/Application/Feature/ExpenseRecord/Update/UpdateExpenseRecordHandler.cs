@@ -9,9 +9,9 @@ public record UpdateExpenseRecordCommand(int ExpenseRecordId, int UserId, Amount
 
 public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository)
 {
-    public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command)
+    public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command, CancellationToken cancellationToken)
     {
-        var result = await expenseRecordRepository.ModifyExpenseRecordById(command);
+        var result = await expenseRecordRepository.ModifyExpenseRecordById(command, cancellationToken);
         
         return new ExpenseRecordResponse(
             Id: result.ExpenseRecordId, 

@@ -10,13 +10,13 @@ public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountEx
 
 public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository)
 {
-    public async Task<ExpenseRecordResponse> HandleAsync(AddExpenseRecordCommand command)
+    public async Task<ExpenseRecordResponse> HandleAsync(AddExpenseRecordCommand command, CancellationToken cancellationToken)
     {
-        var user = await userRepository.GetUserById(command.UserId);
+        var user = await userRepository.GetUserById(command.UserId, cancellationToken);
         
         if(user is null) throw new NotFoundException("User not found");
         
-        var result = await expenseRecordRepository.AddExpenseRecord(command);
+        var result = await expenseRecordRepository.AddExpenseRecord(command, cancellationToken);
         
         return new ExpenseRecordResponse(
             result.ExpenseRecordId,

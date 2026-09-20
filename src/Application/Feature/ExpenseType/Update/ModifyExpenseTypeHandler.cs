@@ -10,13 +10,13 @@ public record ModifyExpenseTypeCommand(int Id, string ExpenseTypeName, bool IsAc
 
 public class ModifyExpenseTypeHandler(IExpenseTypeRepository expenseTypeRepository)
 {
-    public async Task<ExpenseTypeDataResponse> HandleAsync(ModifyExpenseTypeCommand command)
+    public async Task<ExpenseTypeDataResponse> HandleAsync(ModifyExpenseTypeCommand command, CancellationToken cancellationToken)
     {
-        var expenseType = await expenseTypeRepository.GetExpenseTypeById(command.Id);
+        var expenseType = await expenseTypeRepository.GetExpenseTypeById(command.Id, cancellationToken);
         
         if (expenseType == null) throw new NotFoundException("ExpenseType not found");
         
-        var result = await expenseTypeRepository.ModifyExpenseType(command);
+        var result = await expenseTypeRepository.ModifyExpenseType(command, cancellationToken);
         
         return result.ToDto();
     }

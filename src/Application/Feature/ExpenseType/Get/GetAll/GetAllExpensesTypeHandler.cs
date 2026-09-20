@@ -7,9 +7,9 @@ public record GetAllExpensesTypeQuery;
 
 public class GetAllExpensesTypeHandler(IExpenseTypeRepository expenseTypeRepository)
 {
-    public async Task<List<ExpenseTypeDataResponse>> HandleAsync(GetAllExpensesTypeQuery query)
+    public async Task<List<ExpenseTypeDataResponse>> HandleAsync(GetAllExpensesTypeQuery query, CancellationToken cancellationToken)
     {
-        var result = await expenseTypeRepository.GetAllExpenseTypes();
+        var result = await expenseTypeRepository.GetAllExpenseTypes(cancellationToken);
 
         return result.Select( r =>
             new ExpenseTypeDataResponse(

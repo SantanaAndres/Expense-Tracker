@@ -6,9 +6,9 @@ namespace Application.Abstraction.Repository;
 
 public interface IExpenseTypeRepository
 {
-    Task<ExpenseType> GetExpenseTypeById(int expenseTypeId);
-    Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType);
-    Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName);
-    Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseType);
-    Task<List<ExpenseType>> GetAllExpenseTypes();
+    Task<ExpenseType> GetExpenseTypeById(int expenseTypeId, CancellationToken cancellationToken);
+    Task<ExpenseType> AddExpenseType(AddExpenseTypeCommand expenseType, CancellationToken cancellationToken);
+    Task<List<ExpenseType>> GetExpenseTypeByName(string expenseTypeName, CancellationToken cancellationToken);
+    Task<ExpenseType> ModifyExpenseType(ModifyExpenseTypeCommand expenseType, CancellationToken cancellationToken);
+    Task<List<ExpenseType>> GetAllExpenseTypes(CancellationToken cancellationToken);
 }
