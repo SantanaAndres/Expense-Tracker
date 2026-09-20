@@ -9,12 +9,24 @@ public sealed class FixedCostDbConfig : IEntityTypeConfiguration<FixedCost>
     public void Configure(EntityTypeBuilder<FixedCost> builder)
     {
         builder.ToTable("fixed_costs");
-        builder.HasKey(cost => cost.FixedCostId);
+        builder.HasKey(cost => cost.FixedCostId)
+            .HasName("fixed_cost_pk");
+
+        builder.Property(f => f.FixedCostId)
+            .HasColumnName("fixed_cost_id");
 
         builder.HasIndex(cost => cost.UserId)
             .HasDatabaseName("ix_fixed_costs_user_id")
             .HasMethod("btree");
-
+        
+        builder
+            .Property(f => f.UserId)
+            .HasColumnName("user_id");
+        
+        builder
+            .Property(f => f.AmountExpenses)
+            .HasColumnName("amount_expenses");
+        
         builder.OwnsMany(cost => cost.AmountExpenses, owned =>
         {
             owned.ToJson("amount_expenses");
