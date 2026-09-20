@@ -1,9 +1,12 @@
-﻿namespace Application.Abstraction.Repository;
+﻿using Application.Dto;
+using Domain.Entities;
+
+namespace Application.Abstraction.Repository;
 
 public interface IRefreshTokenRepository
 {
-    Task AddAsync(CancellationToken cancellationToken);
+    Task<RefreshToken> AddAsync(AddRefreshTokenDto refreshTokenDto, CancellationToken cancellationToken);
     
-    Task RevokeAsync(CancellationToken cancellationToken);
+    Task RevokeAsync(int id, CancellationToken cancellationToken);
     
 }

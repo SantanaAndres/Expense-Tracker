@@ -1,16 +1,33 @@
 ﻿using Application.Abstraction.Repository;
+using Application.Dto;
+using Application.Dto.Response.RefreshToken;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistence.Repositories;
 
-public class RefreshTokenRepository: IRefreshTokenRepository
+public class RefreshTokenRepository(ExpenseTrackerDbContext dbContext): IRefreshTokenRepository
 {
-    public Task AddAsync(CancellationToken cancellationToken)
+    public async Task<RefreshToken> AddAsync(AddRefreshTokenDto refreshTokenDto, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        RefreshToken refreshToken = new RefreshToken()
+        {
+            Token = refreshTokenDto.Token,
+            UserId = refreshTokenDto.UserId
+        };
+        
+        var result = await dbContext.RefreshTokens.AddAsync(refreshToken, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
+
+        return result.Entity;
     }
     
-    public Task RevokeAsync(CancellationToken cancellationToken)
+    public async Task RevokeAsync(int id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var refreshToken = await dbContext.RefreshTokens.Where(x => x.Id == id).FirstOrDefaultAsync(cancellationToken);
+        
+        refreshToken.IsRevoked = true;
+        
+        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }
