@@ -1,5 +1,6 @@
 ﻿using Application.Feature.User.Add;
 using Application.Feature.User.Get;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
@@ -13,6 +14,7 @@ public static class UserEndpoint
     [Tags("User")]
     [EndpointSummary("Registry new user")]
     [EndpointDescription("Endpoint that allow to register a new user")]
+    [AllowAnonymous]
     public static async Task<IResult> RegistryNewUser(IMessageBus bus, [FromBody] AddUserCommand command)
     {
         await bus.InvokeAsync(command);
@@ -23,9 +25,10 @@ public static class UserEndpoint
     [Tags("User")]
     [EndpointSummary("Login user")]
     [EndpointDescription("Endpoint that allow the user to registry to the app")]
+    [AllowAnonymous]
     public static async Task<string> LoginUser([FromQuery] GetUserByEmailPasswordQuery query, IMessageBus bus)
     {
-        await bus.InvokeAsync(query);
-        return "User logged in";
+        var token = await bus.InvokeAsync<string>(query);
+        return token;
     }
 }

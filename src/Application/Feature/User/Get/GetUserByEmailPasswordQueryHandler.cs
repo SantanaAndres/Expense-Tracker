@@ -1,12 +1,13 @@
 ﻿using Application.Abstraction.Repository;
+using Application.Abstraction.Services;
+using Application.Dto.Request;
 
 namespace Application.Feature.User.Get;
 
 public record GetUserByEmailPasswordQuery(string Email, string Password);
-
-public class GetUserByEmailPasswordQueryHandler
+public class GetUserByEmailPasswordQueryHandler(ITokenService tokenService , IUserRepository userRepository)
 {
-    public async Task HandleAsync(GetUserByEmailPasswordQuery query, IUserRepository userRepository)
+    public async Task<string> HandleAsync(GetUserByEmailPasswordQuery query)
     {
         var user =  await userRepository.CheckUSerEmailAndPassword(query.Email);
         
@@ -17,5 +18,12 @@ public class GetUserByEmailPasswordQueryHandler
         
         if (!isValid)
             throw new Exception("Invalid password");
+        
+        GenerateUserTokenDto generateUserTokenDto = new GenerateUserTokenDto(user.UserId, user.Email);
+        
+        var token = tokenService.GenerateToken(generateUserTokenDto);
+        
+        return token;
+        
     }
 }
