@@ -7,9 +7,9 @@ namespace Application.Feature.User.Get;
 public record GetUserByEmailPasswordQuery(string Email, string Password);
 public class GetUserByEmailPasswordQueryHandler(ITokenService tokenService , IUserRepository userRepository)
 {
-    public async Task<string> HandleAsync(GetUserByEmailPasswordQuery query)
+    public async Task<string> HandleAsync(GetUserByEmailPasswordQuery query, CancellationToken cancellationToken)
     {
-        var user =  await userRepository.CheckUSerEmailAndPassword(query.Email);
+        var user =  await userRepository.CheckUSerEmailAndPassword(query.Email, cancellationToken);
         
         if (user == null)
             throw new Exception("Invalid email");

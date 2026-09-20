@@ -8,10 +8,11 @@ public static class AddUserHandler
 {
     public static async Task HandleAsync(
         AddUserCommand command, 
-        IUserRepository userRepository
+        IUserRepository userRepository,
+        CancellationToken cancellationToken
         )
     {
-        var userCheck = await userRepository.CheckUserExistence(command.Email, command.PhonerNumber);
+        var userCheck = await userRepository.CheckUserExistence(command.Email, command.PhonerNumber, cancellationToken);
         if (userCheck != null)
             throw new Exception("User already exists");
         
@@ -24,6 +25,6 @@ public static class AddUserHandler
             PhoneNumber = command.PhonerNumber
         };
         
-        await userRepository.AddAsync(newUser);
+        await userRepository.AddAsync(newUser, cancellationToken);
     }
 }
