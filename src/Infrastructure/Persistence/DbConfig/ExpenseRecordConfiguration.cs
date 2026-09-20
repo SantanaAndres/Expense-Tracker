@@ -23,10 +23,6 @@ public sealed class ExpenseRecordConfiguration : IEntityTypeConfiguration<Expens
         builder.Property(expense => expense.UserId)
             .HasColumnName("user_id")
             .IsRequired();
-        
-        builder.Property(expense => expense.AmountExpenses)
-            .HasColumnName("amount_expenses")
-            .IsRequired();
 
         builder.HasIndex(expense => new { expense.UserId, expense.Date })
             .HasDatabaseName("ix_expense_records_user_id_date")
