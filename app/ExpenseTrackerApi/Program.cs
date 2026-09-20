@@ -48,8 +48,6 @@ app.UseCustomAuthentication();
 app.MapOpenApi();
 app.MapScalarApiReference();
 
-app.UseHttpsRedirection();
-
 app.MapWolverineEndpoints(opts =>
 {
     opts.UseFluentValidationProblemDetailMiddleware();
