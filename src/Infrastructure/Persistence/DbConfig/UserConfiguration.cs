@@ -11,13 +11,18 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.ToTable("users");
 
         builder.HasKey(user => user.UserId);
+        
+        builder.Property(user => user.UserId)
+            .HasColumnName("user_id");
 
         builder.Property(user => user.Email)
+            .HasColumnName("user_email")
             .IsRequired()
             .HasMaxLength(320);
         
         builder.Property(user => user.PhoneNumber)
             .IsRequired()
+            .HasColumnName("user_phone_number")
             .HasMaxLength(15);
 
         builder.HasIndex(user => user.Email)
@@ -32,6 +37,7 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(user => user.Password)
             .IsRequired()
+            .HasColumnName("user_password")
             .HasMaxLength(255);
 
         builder.HasMany(user => user.ExpenseRecords)
