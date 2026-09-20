@@ -11,8 +11,13 @@ public sealed class ExpenseTypeConfiguration : IEntityTypeConfiguration<ExpenseT
         builder.ToTable("expense_types");
         builder.HasKey(type => type.ExpenseTypeId);
 
+        builder
+            .Property(e => e.ExpenseTypeId)
+            .HasColumnName("expense_type_id");
+        
         builder.Property(type => type.ExpenseName)
             .IsRequired()
+            .HasColumnName("expense_name")
             .HasMaxLength(100);
         
         builder.Property(type => type.IsActive)
