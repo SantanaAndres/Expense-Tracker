@@ -13,6 +13,19 @@ public sealed class ExpenseRecordConfiguration : IEntityTypeConfiguration<Expens
 
         builder.Property(expense => expense.Date)
             .HasColumnType("timestamp with time zone")
+            .HasColumnName("date")
+            .IsRequired();
+        
+        builder.Property(expense => expense.ExpenseRecordId)
+            .HasColumnName("expense_record_id")
+            .IsRequired();
+        
+        builder.Property(expense => expense.UserId)
+            .HasColumnName("user_id")
+            .IsRequired();
+        
+        builder.Property(expense => expense.AmountExpenses)
+            .HasColumnName("amount_expenses")
             .IsRequired();
 
         builder.HasIndex(expense => new { expense.UserId, expense.Date })
