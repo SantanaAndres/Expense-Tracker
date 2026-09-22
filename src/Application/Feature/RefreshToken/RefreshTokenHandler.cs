@@ -38,14 +38,14 @@ public class RefreshTokenHandler(
         
         var accessToken = tokenService.GenerateToken(generateUserTokenDto);
         
-        AddRefreshTokenDto refreshTokenDto = new(accessToken ,refreshToken.UserId);
+        AddRefreshTokenDto refreshTokenDto = new(newRefreshToken ,refreshToken.UserId);
         
         var refreshResult = await refreshTokenRepository.AddAsync(refreshTokenDto, cancellationToken);
         
         return new RefreshTokenResponse(
             accessToken, 
             refreshTokenDto.Token,
-            (DateTime.Now - refreshResult.ExpiryDate).Seconds
+            (DateTime.Now - refreshResult.ExpiryDate).TotalSeconds 
             );
         
     }
