@@ -17,7 +17,6 @@ public static class DepdencyInjection
         services.AddScoped<ICommunicationService, EmailCommunicationService>();
         services.AddScoped<ICommunicationService, SmsCommunicationService>();
         services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IRefreshTokenService, RefreshTokenService>();
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         return services;
     }
