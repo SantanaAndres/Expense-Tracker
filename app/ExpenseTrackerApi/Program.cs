@@ -29,6 +29,8 @@ builder.Host.UseWolverine(opts =>
     opts.CodeGeneration.AlwaysUseServiceLocationFor<IExpenseRecordRepository>();
     opts.CodeGeneration.AlwaysUseServiceLocationFor<IExpenseTypeRepository>();
     opts.CodeGeneration.AlwaysUseServiceLocationFor<IUserRepository>();
+    opts.CodeGeneration.AlwaysUseServiceLocationFor<IRefreshTokenRepository>();
+
 });
 
 builder.Services.AddWolverineHttp();
@@ -45,8 +47,8 @@ app.UseHttpsRedirection();
 app.UseExceptionHandler();
 app.UseCustomAuthentication(); 
 
-app.MapOpenApi();
-app.MapScalarApiReference();
+app.MapOpenApi().AllowAnonymous();
+app.MapScalarApiReference().AllowAnonymous();
 
 app.MapWolverineEndpoints(opts =>
 {
