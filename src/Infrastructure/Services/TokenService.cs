@@ -1,5 +1,6 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Application.Abstraction.Services;
 using Application.Dto.Request;
@@ -37,5 +38,13 @@ public class TokenService(IConfiguration configuration): ITokenService
         );
         
         return new JwtSecurityTokenHandler().WriteToken(token);
+    }
+    
+    public string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[64];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
     }
 }
