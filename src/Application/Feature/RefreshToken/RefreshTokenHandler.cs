@@ -11,7 +11,6 @@ public record RefreshTokenCommand(string Token);
 public class RefreshTokenHandler(
     IRefreshTokenRepository refreshTokenRepository,
     IUserRepository userRepository,
-    IRefreshTokenService refreshTokenService,
     ITokenService tokenService
     )
 {
@@ -32,7 +31,7 @@ public class RefreshTokenHandler(
         
         await refreshTokenRepository.RevokeAsync(refreshToken.Id, cancellationToken);
         
-        var newRefreshToken = refreshTokenService.GenerateRefreshToken();
+        var newRefreshToken = tokenService.GenerateRefreshToken();
         
         GenerateUserTokenDto generateUserTokenDto = new(user.UserId, user.Email);
         
