@@ -4,5 +4,8 @@ namespace Application.Abstraction.Services;
 
 public interface ITokenService
 {
-    public string GenerateToken(GenerateUserTokenDto user);
+    string GenerateToken(GenerateUserTokenDto user);
+    
+    string GenerateRefreshToken();
+
 }
