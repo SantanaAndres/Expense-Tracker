@@ -10,7 +10,6 @@ public record GetUserByEmailPasswordQuery(string Email, string Password);
 public class GetUserByEmailPasswordQueryHandler(
     ITokenService tokenService , 
     IUserRepository userRepository, 
-    IRefreshTokenService refreshTokenService, 
     IRefreshTokenRepository refreshTokenRepository
     )
 {
@@ -30,7 +29,7 @@ public class GetUserByEmailPasswordQueryHandler(
         
         var token = tokenService.GenerateToken(generateUserTokenDto);
         
-        var refreshToken = refreshTokenService.GenerateRefreshToken();
+        var refreshToken = tokenService.GenerateRefreshToken();
         
         await refreshTokenRepository.AddAsync(new AddRefreshTokenDto(refreshToken, user.UserId), cancellationToken);
 
