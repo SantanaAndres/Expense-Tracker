@@ -37,7 +37,7 @@ public class GetUserByEmailPasswordQueryHandler(
         return new LoginResponse(
             token,
             refreshToken,
-            (DateTime.Now.AddDays(30) - DateTime.Now).Seconds
+            (DateTime.Now.AddDays(30) - DateTime.Now).TotalSeconds
             );
     }
 }
