@@ -1,8 +1,10 @@
-﻿using Application.Feature.User.Add;
+﻿using Application.Dto.Response.User;
+using Application.Feature.User.Add;
 using Application.Feature.User.Get;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Wolverine;
 using Wolverine.Http;
 
@@ -25,10 +27,11 @@ public static class UserEndpoint
     [Tags("User")]
     [EndpointSummary("Login user")]
     [EndpointDescription("Endpoint that allow the user to registry to the app")]
+    [EnableRateLimiting("LoginLimit")]
     [AllowAnonymous]
-    public static async Task<string> LoginUser([FromQuery] GetUserByEmailPasswordQuery query, IMessageBus bus)
+    public static async Task<LoginResponse> LoginUser([FromBody] GetUserByEmailPasswordQuery query, IMessageBus bus)
     {
-        var token = await bus.InvokeAsync<string>(query);
-        return token;
+        var result = await bus.InvokeAsync<LoginResponse>(query);
+        return result;
     }
 }
