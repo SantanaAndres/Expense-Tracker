@@ -6,7 +6,7 @@ using Application.Helper.Exceptions;
 
 namespace Application.Feature.FixedCost.Update;
 
-public record UpdateFixedCostCommand(int FixedCostId, List<AmountExpensesRequest> AmountExpenses);
+public record UpdateFixedCostCommand(int FixedCostId, int userId, List<AmountExpensesRequest> AmountExpenses);
 
 public class UpdateFixedCostHandler
 {
