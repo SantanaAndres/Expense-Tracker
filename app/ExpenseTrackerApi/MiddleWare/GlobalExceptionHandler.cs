@@ -8,20 +8,47 @@ public class GlobalExceptionHandler: IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(HttpContext context, Exception exception, CancellationToken cancellationToken)
     {
-        if (exception is not NotFoundException notFound)
-            return false;
-        
+        switch (exception)
+        {
+             case NotFoundException notFound:
+                await HandleNotFoundAsync(context, notFound, cancellationToken);
+                return true;
+            
+            case InvalidCredentialException invalidCredential:
+                await HandleInvalidCredentialsAsync(context, invalidCredential, cancellationToken);
+                return true;
+            
+            default:
+                return false;
+        }
+    }
+    
+    private static async Task HandleNotFoundAsync(HttpContext context, NotFoundException excepction, CancellationToken cancellationToken)
+    {
         context.Response.StatusCode = StatusCodes.Status404NotFound;
 
         var problemDetails = new ProblemDetails
         {
             Status = StatusCodes.Status404NotFound,
             Title = "Resource not found",
-            Detail = notFound.Message
+            Detail = excepction.Message
         };
         
         await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
-
-        return true;
     }
+    
+    private static async Task HandleInvalidCredentialsAsync(HttpContext context, InvalidCredentialException excepction, CancellationToken cancellationToken)
+    {
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status401Unauthorized,
+            Title = "Authentication Failed",
+            Detail = excepction.Message
+        };
+        
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+    }
+
 }
