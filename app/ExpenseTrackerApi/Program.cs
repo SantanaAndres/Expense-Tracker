@@ -14,6 +14,7 @@ using Wolverine.Http.FluentValidation;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCustomJwtAuthentication(builder.Configuration);
+builder.Services.AddCustomRateLimit(builder.Configuration);
 
 builder.Services.AddOpenApi();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

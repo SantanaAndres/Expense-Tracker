@@ -37,7 +37,7 @@ public class GlobalExceptionHandler: IExceptionHandler
         await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
     }
     
-    private static async Task HandleInvalidCredentialsAsync(HttpContext context, InvalidCredentialException excepction, CancellationToken cancellationToken)
+    private static async Task HandleInvalidCredentialsAsync(HttpContext context, InvalidCredentialException exception, CancellationToken cancellationToken)
     {
         context.Response.StatusCode = StatusCodes.Status401Unauthorized;
 
@@ -45,10 +45,24 @@ public class GlobalExceptionHandler: IExceptionHandler
         {
             Status = StatusCodes.Status401Unauthorized,
             Title = "Authentication Failed",
-            Detail = excepction.Message
+            Detail = exception.Message
         };
         
         await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
     }
+
+    private static async Task HandleUnauthorizedAccessAsync(HttpContext context, UnauthorizedAccessException exception,
+        CancellationToken cancellationToken)
+    {
+        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status401Unauthorized,
+            Title = "Unauthorized Access",
+            Detail = exception.Message
+        };
+        
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    }
 
 }

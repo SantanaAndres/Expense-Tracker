@@ -3,6 +3,7 @@ using Application.Abstraction.Services;
 using Application.Dto;
 using Application.Dto.Request;
 using Application.Dto.Response.RefreshToken;
+using Application.Helper.Exceptions;
 
 namespace Application.Feature.RefreshToken;
 
@@ -19,15 +20,18 @@ public class RefreshTokenHandler(
         var refreshToken = await refreshTokenRepository.GetTokenAsync(command.Token, cancellationToken);
 
         if (refreshToken == null)
-            throw new UnauthorizedAccessException("Refresh token not found");
+            throw new NotFoundException("Refresh token not found");
         
         if(refreshToken.IsRevoked)
             throw new UnauthorizedAccessException("Refresh token revoked");
         
+        if(refreshToken.ExpiryDate < DateTime.UtcNow)
+            throw new UnauthorizedAccessException("Refresh token expired");
+        
         var user = await userRepository.GetUserById(refreshToken.UserId, cancellationToken);
         
         if (user == null)
-            throw new UnauthorizedAccessException("User not found");
+            throw new NotFoundException("User not found");
         
         await refreshTokenRepository.RevokeAsync(refreshToken.Id, cancellationToken);
         
