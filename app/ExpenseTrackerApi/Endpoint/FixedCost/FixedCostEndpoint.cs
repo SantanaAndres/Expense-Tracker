@@ -1,8 +1,10 @@
-﻿using Application.Dto.Request;
+﻿using System.Security.Claims;
+using Application.Dto.Request;
 using Application.Dto.Response.FixedCost;
 using Application.Feature.FixedCost.Add;
 using Application.Feature.FixedCost.Get;
 using Application.Feature.FixedCost.Update;
+using ExpenseTrackerApi.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Wolverine;
@@ -17,9 +19,17 @@ public class FixedCostEndpoint
     [EndpointSummary("Get all fixed costs of user")]
     [EndpointDescription("Endpoint that give to the user all the fixed costs of him")]
     [Authorize]
-    public static async Task<List<FixedCostByUserResponse>> GetAllFixedByUserIdCosts([FromQuery] GetFixedCostOfUserQuery fixedCostRequest, IMessageBus bus)
+    public static async Task<List<FixedCostByUserResponse>> GetAllFixedByUserIdCosts(
+        IMessageBus bus,
+        ClaimsPrincipal claims
+        )
     {
+        var userId = claims.GetUserId();
+        
+        var fixedCostRequest = new GetFixedCostOfUserQuery(userId);
+        
         var result = await bus.InvokeAsync<List<FixedCostByUserResponse>>(fixedCostRequest);
+        
         return result;
     }
 
