@@ -21,6 +21,9 @@ public class UpdateFixedCostHandler
         if (fixedCost is null)
             throw new NotFoundException("FixedCost not found");
         
+        if(fixedCost.UserId != command.userId)
+            throw new UnauthorizedAccessException("You are not authorized to modify this fixed cost");
+        
         var result = await fixedCostRepository.ModifyFixedCostById(command, cancellationToken);
         return result.ToDto();
     }
