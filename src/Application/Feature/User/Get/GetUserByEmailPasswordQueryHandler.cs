@@ -21,7 +21,7 @@ public class GetUserByEmailPasswordQueryHandler(
         var user =  await userRepository.CheckUSerEmailAndPassword(query.Email, cancellationToken);
         
         if (user == null)
-            throw new NotFoundException("Invalid email");
+            throw new NotFoundException("Email not found");
         
         bool isValid = BCrypt.Net.BCrypt.Verify(query.Password, user.Password);
         
@@ -39,7 +39,7 @@ public class GetUserByEmailPasswordQueryHandler(
         return new LoginResponse(
             token,
             refreshToken,
-            (DateTime.Now.AddDays(30) - DateTime.Now).TotalSeconds
+            (DateTime.Now.AddHours(2) - DateTime.Now).TotalSeconds
             );
     }
 }
