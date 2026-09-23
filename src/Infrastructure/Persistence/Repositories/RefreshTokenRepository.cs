@@ -18,7 +18,8 @@ public class RefreshTokenRepository(ExpenseTrackerDbContext dbContext): IRefresh
         RefreshToken refreshToken = new RefreshToken()
         {
             Token = refreshTokenDto.Token,
-            UserId = refreshTokenDto.UserId
+            UserId = refreshTokenDto.UserId,
+            ExpiryDate = DateTime.UtcNow.AddDays(30)
         };
         
         var result = await dbContext.RefreshTokens.AddAsync(refreshToken, cancellationToken);
