@@ -38,19 +38,36 @@ public class FixedCostEndpoint
     [EndpointSummary("Add new fixed cost")]
     [EndpointDescription("Endpoint that allow to add a new fixed cost")]
     [Authorize]
-    public static async Task<FixedCostByUserResponse> AddNewFixedCost([FromBody] AddFixedCostCommand command, IMessageBus bus)
+    public static async Task<FixedCostByUserResponse> AddNewFixedCost(
+        [FromBody] List<AmountExpensesRequest> amountExpenses,
+        ClaimsPrincipal claims,
+        IMessageBus bus
+        )
     {
+        var command = new AddFixedCostCommand(claims.GetUserId(),amountExpenses);
+        
         var result =  await bus.InvokeAsync<FixedCostByUserResponse>(command);
+        
         return result;
     }
-
+    
+    
+    
+    public record UpdateFixedCostRequest(int FixedCostId, List<AmountExpensesRequest> AmountExpenses);
+    
     [WolverinePut("/modify-fixed-cost")]
     [Tags("FixedCosts")]
     [EndpointSummary("Modify fixed cost")]
     [EndpointDescription("Endpoint that allow to modify a fixed cost")]
     [Authorize]
-    public static async Task<FixedCostByUserResponse> ModifyFixedCost([FromBody] UpdateFixedCostCommand command, IMessageBus bus)
+    public static async Task<FixedCostByUserResponse> ModifyFixedCost(
+        [FromBody] UpdateFixedCostRequest request,
+        ClaimsPrincipal claims,
+        IMessageBus bus
+        )
     {
+        var command = new UpdateFixedCostCommand(request.FixedCostId, claims.GetUserId(), request.AmountExpenses);
+        
         return await bus.InvokeAsync<FixedCostByUserResponse>(command);
     }
 }
