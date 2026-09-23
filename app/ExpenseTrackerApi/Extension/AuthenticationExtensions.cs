@@ -44,7 +44,6 @@ public static class AuthenticationExtensions
     
     public static WebApplication UseCustomAuthentication(this WebApplication app)
     {
-        app.UseRateLimiter();
         app.UseAuthentication();
         app.UseAuthorization();
         
