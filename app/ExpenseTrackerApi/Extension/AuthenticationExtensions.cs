@@ -38,30 +38,6 @@ public static class AuthenticationExtensions
                 .RequireAuthenticatedUser()
                 .Build();
         });
-        
-        services.AddRateLimiter(options =>
-        {
-            options.AddFixedWindowLimiter("LoginLimit", opt =>
-            {
-                opt.PermitLimit = 5;
-                opt.Window = TimeSpan.FromMinutes(1);
-                opt.QueueLimit = 0;
-            });
-            
-            options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
-            
-            options.OnRejected = async (context, token) =>
-            {
-                var problemDetails = new ProblemDetails
-                {
-                    Status = StatusCodes.Status429TooManyRequests,
-                    Title = "Too Many Requests",
-                    Detail = "Too many login attempts. Please wait 1 minute."
-                };
-                await context.HttpContext.Response.WriteAsJsonAsync(problemDetails, token);
-            };
-        });
-        
             
         return services;
     }

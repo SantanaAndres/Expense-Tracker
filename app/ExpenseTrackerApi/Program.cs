@@ -46,6 +46,7 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseExceptionHandler();
 app.UseCustomAuthentication(); 
+app.UseCustomRateLimit();
 
 app.MapOpenApi().AllowAnonymous();
 app.MapScalarApiReference().AllowAnonymous();
