@@ -1,8 +1,11 @@
-﻿using Application.Abstraction.Repository;
+﻿using System.Security.Authentication;
+using Application.Abstraction.Repository;
 using Application.Abstraction.Services;
 using Application.Dto;
 using Application.Dto.Request;
 using Application.Dto.Response.User;
+using Application.Helper.Exceptions;
+using InvalidCredentialException = Application.Helper.Exceptions.InvalidCredentialException;
 
 namespace Application.Feature.User.Get;
 
@@ -18,12 +21,12 @@ public class GetUserByEmailPasswordQueryHandler(
         var user =  await userRepository.CheckUSerEmailAndPassword(query.Email, cancellationToken);
         
         if (user == null)
-            throw new Exception("Invalid email");
+            throw new NotFoundException("Invalid email");
         
         bool isValid = BCrypt.Net.BCrypt.Verify(query.Password, user.Password);
         
         if (!isValid)
-            throw new Exception("Invalid password");
+            throw new InvalidCredentialException("Invalid password");
         
         GenerateUserTokenDto generateUserTokenDto = new GenerateUserTokenDto(user.UserId, user.Email);
         
