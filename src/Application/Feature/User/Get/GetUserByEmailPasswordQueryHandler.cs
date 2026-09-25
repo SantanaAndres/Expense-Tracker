@@ -1,5 +1,4 @@
-﻿using System.Security.Authentication;
-using Application.Abstraction.Repository;
+﻿using Application.Abstraction.Repository;
 using Application.Abstraction.Services;
 using Application.Dto;
 using Application.Dto.Request;
@@ -38,8 +37,7 @@ public class GetUserByEmailPasswordQueryHandler(
 
         return new LoginResponse(
             token,
-            refreshToken,
-            (DateTime.Now.AddHours(2) - DateTime.Now).TotalSeconds
+            refreshToken
             );
     }
 }

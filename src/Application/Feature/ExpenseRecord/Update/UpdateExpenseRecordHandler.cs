@@ -13,6 +13,9 @@ public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRe
     {
         var expenseRecord = await expenseRecordRepository.GetExpenseRecordById(command.ExpenseRecordId, cancellationToken);
         
+        if(expenseRecord == null)
+            throw new UnauthorizedAccessException("Expense record not found");
+        
         if(expenseRecord.UserId != command.UserId)
             throw new UnauthorizedAccessException("You cannot modify this expense record");
         
