@@ -20,12 +20,12 @@ public class GetUserByEmailPasswordQueryHandler(
         var user =  await userRepository.CheckUSerEmailAndPassword(query.Email, cancellationToken);
         
         if (user == null)
-            throw new NotFoundException("Email not found");
+            throw new NotFoundException("Invalid credentials");
         
         bool isValid = BCrypt.Net.BCrypt.Verify(query.Password, user.Password);
         
         if (!isValid)
-            throw new InvalidCredentialException("Invalid password");
+            throw new InvalidCredentialException("Invalid credentials");
         
         GenerateUserTokenDto generateUserTokenDto = new GenerateUserTokenDto(user.UserId, user.Email);
         
