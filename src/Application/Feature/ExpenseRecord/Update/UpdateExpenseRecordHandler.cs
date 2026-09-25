@@ -11,6 +11,11 @@ public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRe
 {
     public async Task<ExpenseRecordResponse> HandleAsync(UpdateExpenseRecordCommand command, CancellationToken cancellationToken)
     {
+        var expenseRecord = await expenseRecordRepository.GetExpenseRecordById(command.ExpenseRecordId, cancellationToken);
+        
+        if(expenseRecord.UserId != command.UserId)
+            throw new UnauthorizedAccessException("You cannot modify this expense record");
+        
         var result = await expenseRecordRepository.ModifyExpenseRecordById(command, cancellationToken);
         
         return new ExpenseRecordResponse(

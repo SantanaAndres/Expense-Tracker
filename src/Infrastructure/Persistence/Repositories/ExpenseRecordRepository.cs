@@ -10,6 +10,10 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpenseRecordRepository
 {
+    public async Task<ExpenseRecord> GetExpenseRecordById(int expenseRecordId, CancellationToken cancellationToken)
+    {
+        return await dbContext.ExpenseRecords.FirstOrDefaultAsync(expense => expense.ExpenseRecordId == expenseRecordId, cancellationToken);
+    }
 
     public async Task<List<ExpenseRecord>> GetExpenseRecordsByUserId(int userId, CancellationToken cancellationToken)
     {
