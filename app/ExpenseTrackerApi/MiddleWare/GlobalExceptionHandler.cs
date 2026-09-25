@@ -18,6 +18,10 @@ public class GlobalExceptionHandler: IExceptionHandler
                 await HandleInvalidCredentialsAsync(context, invalidCredential, cancellationToken);
                 return true;
             
+            case UnauthorizedAccessException unauthorized:
+                await HandleUnauthorizedAccessAsync(context, unauthorized, cancellationToken);
+                return true;
+            
             default:
                 return false;
         }

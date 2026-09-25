@@ -21,7 +21,7 @@ public class TokenService(IConfiguration configuration): ITokenService
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Email.ToString()),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            new Claim("IdUser", user.Id.ToString())
+            new Claim("UserId", user.Id.ToString())
         };
         
         var credentials = new SigningCredentials(
