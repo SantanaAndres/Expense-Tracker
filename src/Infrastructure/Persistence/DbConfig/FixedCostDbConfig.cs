@@ -14,6 +14,10 @@ public sealed class FixedCostDbConfig : IEntityTypeConfiguration<FixedCost>
         builder.HasIndex(cost => cost.UserId)
             .HasDatabaseName("ix_fixed_costs_user_id")
             .HasMethod("btree");
+        
+        builder.Property(f => f.Cron)
+            .HasMaxLength(20)
+            .IsRequired();
 
         builder.OwnsMany(cost => cost.AmountExpenses, owned =>
         {
