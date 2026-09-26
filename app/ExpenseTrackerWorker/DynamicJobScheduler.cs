@@ -14,17 +14,25 @@ public class DynamicJobScheduler(ISchedulerFactory schedulerFactory, ExpenseTrac
 
         foreach (var cost in fixedCosts)
         {
-            IJobDetail job = JobBuilder.Create()
-                .WithIdentity(cost.FixedCostId.ToString())
-                .UsingJobData("FixedCostId", cost.FixedCostId)
-                .Build();
-
-            ITrigger trigger = TriggerBuilder.Create()
-                .WithIdentity(cost.FixedCostId.ToString())
-                .WithCronSchedule(cost.Cron)
-                .Build();
             
-            await scheduler.ScheduleJob(job, trigger, cancellationToken: cancellationToken);
+            foreach (var amountExpense in cost.AmountExpenses)
+            {
+            
+                IJobDetail job = JobBuilder.Create()
+                    .WithIdentity(cost.FixedCostId.ToString())
+                    .UsingJobData("FixedCostId", cost.FixedCostId)
+                    .UsingJobData("AmountExpenseId", amountExpense.AmountExpenseId)
+                    .Build();
+
+                ITrigger trigger = TriggerBuilder.Create()
+                    .WithIdentity(cost.FixedCostId.ToString())
+                    .WithCronSchedule(amountExpense.Cron)
+                    .Build();
+                
+                await scheduler.ScheduleJob(job, trigger, cancellationToken: cancellationToken);
+                
+            }
+            
         }
         
     }
