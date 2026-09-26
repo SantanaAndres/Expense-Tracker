@@ -1,13 +1,12 @@
 ﻿using Application.Feature.FixedCost.Add;
 using Application.Feature.FixedCost.Update;
 using Domain.Entities;
-using Domain.Enum;
 
 namespace Application.Abstraction.Repository;
 
 public interface IFixedCostRepository
 {
-    Task<FixedCost> GetFixedCostById(int fixedCostId);
+    Task<FixedCost?> GetFixedCostById(int fixedCostId);
     
     Task<List<FixedCost>> GetFixedCostsByUserId(int userId);
     
