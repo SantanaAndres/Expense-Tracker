@@ -9,7 +9,12 @@ namespace Application.Feature.ExpenseRecord.Add;
 
 public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
 
-public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository, CancellationToken cancellationToken, ILogger<AddExpenseRecordHandler> logger)
+public class AddExpenseRecordHandler(
+    IExpenseRecordRepository expenseRecordRepository, 
+    IUserRepository userRepository, 
+    CancellationToken cancellationToken, 
+    ILogger<AddExpenseRecordHandler> logger
+    )
 {
     public async Task<ExpenseRecordResponse> HandleAsync(AddExpenseRecordCommand command)
     {
