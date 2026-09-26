@@ -8,33 +8,33 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
 {
-    public async Task<User> GetUserById(int userId)
+    public async Task<User> GetUserById(int userId, CancellationToken cancellationToken)
     {
-        return await dbContext.Users.Where(user => user.UserId == userId).FirstOrDefaultAsync();
+        return await dbContext.Users.Where(user => user.UserId == userId).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<User> CheckUSerEmailAndPassword(string email)
+    public async Task<User> CheckUSerEmailAndPassword(string email, CancellationToken cancellationToken)
     {
-        return await dbContext.Users.Where(user => user.Email == email).FirstOrDefaultAsync();
+        return await dbContext.Users.Where(user => user.Email == email).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<User> AddAsync(User newUser)
+    public async Task<User> AddAsync(User newUser, CancellationToken cancellationToken)
     {
-        var userResponse = await dbContext.Users.AddAsync(newUser);
-        await dbContext.SaveChangesAsync();
+        var userResponse = await dbContext.Users.AddAsync(newUser, cancellationToken);
+        await dbContext.SaveChangesAsync(cancellationToken);
         
         return userResponse.Entity;
     }
 
-    public async Task<User?> CheckUserExistence(string email, string phoneNumber)
+    public async Task<User?> CheckUserExistence(string email, string phoneNumber, CancellationToken cancellationToken)
     {
-        return await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email || user.PhoneNumber == phoneNumber);
+        return await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email || user.PhoneNumber == phoneNumber, cancellationToken);
     }
 
-    public async Task<int> ModifyUserPassword(int userId, string password)
+    public async Task<int> ModifyUserPassword(int userId, string password, CancellationToken cancellationToken)
     {
         return await dbContext.Users
             .Where(u => u.UserId == userId)
-            .ExecuteUpdateAsync(s => s.SetProperty(u => u.Password, password));
+            .ExecuteUpdateAsync(s => s.SetProperty(u => u.Password, password), cancellationToken);
     }
 }

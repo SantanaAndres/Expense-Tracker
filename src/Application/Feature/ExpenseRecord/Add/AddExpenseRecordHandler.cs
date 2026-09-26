@@ -8,11 +8,11 @@ namespace Application.Feature.ExpenseRecord.Add;
 
 public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
 
-public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository)
+public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository, CancellationToken cancellationToken)
 {
     public async Task<ExpenseRecordResponse> HandleAsync(AddExpenseRecordCommand command)
     {
-        var user = await userRepository.GetUserById(command.UserId);
+        var user = await userRepository.GetUserById(command.UserId, cancellationToken);
         
         if(user is null) throw new NotFoundException("User not found");
         

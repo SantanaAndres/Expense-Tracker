@@ -8,11 +8,11 @@ namespace Application.Feature.FixedCost.Add;
 
 public record AddFixedCostCommand(int UserId, List<AmountExpensesRequest> AmountExpenses);
 
-public class AddFixedCostHandler(IFixedCostRepository fixedCostRepository, IUserRepository userRepository)
+public class AddFixedCostHandler(IFixedCostRepository fixedCostRepository, IUserRepository userRepository, CancellationToken cancellationToken)
 {
     public async Task<FixedCostByUserResponse> HandleAsync(AddFixedCostCommand command)
     {
-        var user = await userRepository.GetUserById(command.UserId);
+        var user = await userRepository.GetUserById(command.UserId, cancellationToken);
         
         if(user == null) throw new NotFoundException("User not found");
         
