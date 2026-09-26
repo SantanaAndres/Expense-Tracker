@@ -4,9 +4,11 @@ namespace Domain.Entities;
 
 public class AmountExpenses
 {
+    public Guid AmountExpenseId { get; set; } = Guid.NewGuid();
     public int ExpenseTypeId { get; set; }
     public bool IsActive { get; set; }
     public string? Description { get; set; }
     public FrequencyEnum FrequencyEnum { get; set; }
+    public string Cron { get; set; }
     public decimal Amount { get; set; }
 }
