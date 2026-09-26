@@ -10,7 +10,5 @@ public class FixedCost
     
     public List<AmountExpenses> AmountExpenses { get; set; }
     
-    public string Cron { get; set; }
-    
     public virtual User User { get; set; }
 }
