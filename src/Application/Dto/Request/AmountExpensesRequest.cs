@@ -5,5 +5,6 @@ public record AmountExpensesRequest(
     bool IsActive,
     string Description,
     string Frequency,
-    decimal Amount
+    decimal Amount,
+    string Cron
     );
