@@ -20,7 +20,7 @@ public class AddFixedCostValidator: AbstractValidator<AddFixedCostCommand>
         
         foreach (var amount in amountExpenses)
         {
-            if (amount is { Amount: <= 0 } || !Enum.TryParse<FrequencyEnum>(amount.Frequency, true, out var _))
+            if (amount is { Amount: <= 0 } || !Enum.TryParse<FrequencyEnum>(amount.Frequency, true, out var _) || string.IsNullOrEmpty(amount.Cron))
             {
                 isValid = false;
             }

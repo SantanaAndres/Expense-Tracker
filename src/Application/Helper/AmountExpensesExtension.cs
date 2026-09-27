@@ -12,7 +12,8 @@ public static class AmountExpensesExtension
             IsActive: amountExpenses.IsActive,
             Description: amountExpenses.Description,
             Frequency: amountExpenses.FrequencyEnum.ToString(),
-            Amount: amountExpenses.Amount
+            Amount: amountExpenses.Amount,
+            Cron: amountExpenses.Cron
         );
     }
 }
