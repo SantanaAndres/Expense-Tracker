@@ -28,6 +28,9 @@ public sealed class ExpenseRecordConfiguration : IEntityTypeConfiguration<Expens
                 .HasConversion<string>()
                 .HasMaxLength(20)
                 .IsRequired();
+            owned.Property(amount => amount.Cron)
+                .HasMaxLength(20)
+                .IsRequired();
             owned.Property(amount => amount.Amount)
                 .HasPrecision(18, 2)
                 .IsRequired();
