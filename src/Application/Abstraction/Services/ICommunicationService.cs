@@ -2,5 +2,5 @@
 
 public interface ICommunicationService
 {
-    Task SendMessage();
+    Task SendMessage(string toEmail, string toName, string subject, string htmlContent);
 }
