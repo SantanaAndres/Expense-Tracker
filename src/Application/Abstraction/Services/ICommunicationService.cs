@@ -2,5 +2,6 @@
 
 public interface ICommunicationService
 {
+    string CommunicationServiceType { get; }
     Task SendMessage();
 }
