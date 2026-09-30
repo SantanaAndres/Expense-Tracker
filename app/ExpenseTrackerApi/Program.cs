@@ -1,3 +1,4 @@
+using Application;
 using Application.Abstraction.Repository;
 using Application.Feature.User.Add;
 using ExpenseTrackerApi.Extension;
@@ -41,6 +42,7 @@ builder.Services.AddDbContext<ExpenseTrackerDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddInfraestructuraBackend();
+builder.Services.AddApplicationServices();
 
 var app = builder.Build();
 
