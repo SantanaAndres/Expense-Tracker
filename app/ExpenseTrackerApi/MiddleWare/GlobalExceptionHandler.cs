@@ -1,6 +1,7 @@
 ﻿using Application.Helper.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using sib_api_v3_sdk.Client;
 
 namespace ExpenseTrackerApi.MiddleWare;
 
@@ -20,6 +21,14 @@ public class GlobalExceptionHandler: IExceptionHandler
             
             case UnauthorizedAccessException unauthorized:
                 await HandleUnauthorizedAccessAsync(context, unauthorized, cancellationToken);
+                return true;
+            
+            case NullReferenceException nullExcpt:
+                await HandleNullReferenceExceptionAsync(context, nullExcpt, cancellationToken);
+                return true;
+            
+            case ApiException apiException:
+                await HandleApiExceptionAsync(context, apiException, cancellationToken);
                 return true;
             
             default:
@@ -67,6 +76,35 @@ public class GlobalExceptionHandler: IExceptionHandler
             Detail = exception.Message
         };
         
-        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    }
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    
+    }
+
+    private static async Task HandleNullReferenceExceptionAsync(HttpContext context, NullReferenceException exception, CancellationToken cancellationToken)
+    {
+        context.Response.StatusCode = StatusCodes.Status404NotFound;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status404NotFound,
+            Title = "Null Reference",
+            Detail = exception.Message
+        };
+        
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    
+    }
+    
+    private static async Task HandleApiExceptionAsync(HttpContext context, ApiException exception, CancellationToken cancellationToken)
+    {
+        context.Response.StatusCode = StatusCodes.Status500InternalServerError;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status500InternalServerError,
+            Title = "Error sending request to brevo",
+            Detail = exception.Message
+        };
+        
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    
+    }
 
 }
