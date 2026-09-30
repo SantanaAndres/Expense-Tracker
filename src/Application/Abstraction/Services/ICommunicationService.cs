@@ -3,5 +3,7 @@
 public interface ICommunicationService
 {
     string CommunicationServiceType { get; }
-    Task SendMessage();
+    Task<bool> SendMessage(CommunicationServiceParameters  parameters);
 }
+
+public record CommunicationServiceParameters(string Message, string Subject, string To);
