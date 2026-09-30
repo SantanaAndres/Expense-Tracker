@@ -1,6 +1,7 @@
 ﻿using Application.Dto.Response.User;
 using Application.Feature.User.Add;
 using Application.Feature.User.Get;
+using Application.Feature.User.UpdatePasswordUser.ResetPassword;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,17 @@ public static class UserEndpoint
     public static async Task<LoginResponse> LoginUser([FromBody] GetUserByEmailPasswordQuery query, IMessageBus bus)
     {
         var result = await bus.InvokeAsync<LoginResponse>(query);
+        return result;
+    }
+    
+    [WolverinePost("/reset-password")]
+    [Tags("User")]
+    [EndpointSummary("Reset user password")]
+    [EndpointDescription("Endpoint that allow to reset your user password by sms or email")]
+    [AllowAnonymous]
+    public static async Task<bool> ResetUserPassword([FromBody] ResetPasswordCommand command, IMessageBus bus)
+    {
+        var result = await bus.InvokeAsync<bool>(command);
         return result;
     }
 }
