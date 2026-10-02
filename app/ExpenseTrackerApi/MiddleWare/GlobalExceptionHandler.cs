@@ -106,5 +106,19 @@ public class GlobalExceptionHandler: IExceptionHandler
         
         await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);    
     }
+    
+    private static async Task HandleArgumentExceptionAsync(HttpContext context, ArgumentException exception, CancellationToken cancellationToken)
+    {
+        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+        var problemDetails = new ProblemDetails
+        {
+            Status = StatusCodes.Status400BadRequest,
+            Title = "Argument error",
+            Detail = exception.Message
+        };
+            
+        await context.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+    }
 
 }
