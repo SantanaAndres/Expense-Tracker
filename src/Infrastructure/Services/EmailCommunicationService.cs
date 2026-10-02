@@ -45,14 +45,12 @@ public class EmailCommunicationService(IConfiguration conf, ILogger<EmailCommuni
         List<SendSmtpEmailTo> toList = new List<SendSmtpEmailTo> { recipient };
 
         string subject = parameters.Subject;
-        string htmlContent = $"<html><body><h1>Hello, Jane!</h1><p>Thanks for joining us {appLink}.</p></body></html>";
-        string textContent = parameters.Message;
+        string htmlContent = parameters.Message;
 
         var sendSmtpEmail = new SendSmtpEmail(
             sender: sender,
             to: toList,
             htmlContent: htmlContent,
-            textContent: textContent,
             subject: subject
         );
         
