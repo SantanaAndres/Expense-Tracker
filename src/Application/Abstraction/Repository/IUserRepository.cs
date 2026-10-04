@@ -4,7 +4,7 @@ namespace Application.Abstraction.Repository;
 
 public interface IUserRepository
 {
-    Task<User> GetUserById(int userId, CancellationToken cancellationToken);
+    Task<User?> GetUserById(int userId, CancellationToken cancellationToken);
     
     Task<User> AddAsync(User user, CancellationToken cancellationToken);
     
@@ -14,5 +14,5 @@ public interface IUserRepository
     
     Task<int> ModifyUserPassword(int id, string password, CancellationToken cancellationToken);
     
-    Task<User> CheckUSerEmailAndPassword(string email, CancellationToken cancellationToken);
+    Task<User?> CheckUSerEmailAndPassword(string email, CancellationToken cancellationToken);
 }

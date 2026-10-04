@@ -8,12 +8,12 @@ namespace Infrastructure.Persistence.Repositories;
 
 public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
 {
-    public async Task<User> GetUserById(int userId, CancellationToken cancellationToken)
+    public async Task<User?> GetUserById(int userId, CancellationToken cancellationToken)
     {
         return await dbContext.Users.Where(user => user.UserId == userId).FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<User> CheckUSerEmailAndPassword(string email, CancellationToken cancellationToken)
+    public async Task<User?> CheckUSerEmailAndPassword(string email, CancellationToken cancellationToken)
     {
         return await dbContext.Users.Where(user => user.Email == email).FirstOrDefaultAsync(cancellationToken);
     }
