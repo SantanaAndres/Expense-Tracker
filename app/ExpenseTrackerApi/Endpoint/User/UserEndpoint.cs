@@ -46,4 +46,14 @@ public static class UserEndpoint
         var result = await bus.InvokeAsync<bool>(command);
         return result;
     }
+    
+    [WolverinePost("/change-password")]
+    [Tags("User")]
+    [EndpointSummary("Reset user password")]
+    [EndpointDescription("Endpoint that allow to reset your user password by sms or email")]
+    public static async Task<bool> PasswordChange([FromBody] ResetPasswordCommand command, IMessageBus bus)
+    {
+        var result = await bus.InvokeAsync<bool>(command);
+        return result;
+    }
 }
