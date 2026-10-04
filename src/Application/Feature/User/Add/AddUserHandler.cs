@@ -12,8 +12,11 @@ public static class AddUserHandler
         CancellationToken cancellationToken
         )
     {
-        var userCheck = await userRepository.CheckUserExistence(command.Email, command.PhonerNumber, cancellationToken);
-        if (userCheck != null)
+        Domain.Entities.User? userCheckByEmail = await userRepository.CheckUserExistenceByEmail(command.Email, cancellationToken);
+        
+        Domain.Entities.User? userCheckByPhone = await userRepository.CheckUserExistenceByPhone(command.PhonerNumber, cancellationToken);
+        
+        if (userCheckByEmail != null || userCheckByPhone != null)
             throw new Exception("User already exists");
         
         string passwordHash = BCrypt.Net.BCrypt.HashPassword(command.Password);
