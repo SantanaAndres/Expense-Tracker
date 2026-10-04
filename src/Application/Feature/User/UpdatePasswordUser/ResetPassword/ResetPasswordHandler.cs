@@ -19,13 +19,12 @@ public class ResetPasswordHandler(
     IConfiguration conf
     )
 {
-    public async Task Handle(ResetPasswordCommand command, CancellationToken cancellationToken)
+    public async Task<ResetPasswordResponse> Handle(ResetPasswordCommand command, CancellationToken cancellationToken)
     {
         logger.LogInformation("ResetPasswordHandler");
         
         var appLink = conf.GetSection("AppLink").Value;
         Domain.Entities.User? user = null;
-        Domain.Entities.User? userMail = null;
 
         if (string.IsNullOrEmpty(appLink))
         {
@@ -38,12 +37,12 @@ public class ResetPasswordHandler(
         if (command.CommunicationServiceType == "Sms")
             user = await userRepository.CheckUserExistenceByPhone(command.Recipient, cancellationToken);
         else if (command.CommunicationServiceType == "Email")
-            userMail = await userRepository.CheckUserExistenceByEmail(command.Recipient, cancellationToken);
+            user = await userRepository.CheckUserExistenceByEmail(command.Recipient, cancellationToken);
         
-        if(user is null || userMail is null)
+        if(user is null)
             throw new NotFoundException("Please provide a valid user");
 
-        GenerateUserTokenDto generateUserTokenDto = new GenerateUserTokenDto(userMail.UserId, userMail.Email);
+        GenerateUserTokenDto generateUserTokenDto = new GenerateUserTokenDto(user.UserId, user.Email);
         
         var token = tokenService.GenerateToken(generateUserTokenDto);
 
@@ -57,10 +56,14 @@ public class ResetPasswordHandler(
 
         var parameters = new CommunicationServiceParameters(message, "Reset your password", command.Recipient);
         
-        var result = await communicationService.SendMessage(parameters);
+        await communicationService.SendMessage(parameters);
+        
+        return new ResetPasswordResponse("Mensaje de cambio de contraseña enviado correctamente", command.Recipient, command.CommunicationServiceType);
         
     }
 
+    public record ResetPasswordResponse(string Message, string Recipient, string CommunicationServiceType);
+    
     private string GetResetPasswordMesssage(string communicationServiceType, string appLink)
     {
         if (communicationServiceType == "Sms")
