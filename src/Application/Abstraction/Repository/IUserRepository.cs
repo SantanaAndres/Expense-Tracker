@@ -8,7 +8,9 @@ public interface IUserRepository
     
     Task<User> AddAsync(User user, CancellationToken cancellationToken);
     
-    Task<User?> CheckUserExistence(string email, string phoneNumber, CancellationToken cancellationToken);
+    Task<User?> CheckUserExistenceByEmail(string email, CancellationToken cancellationToken);
+    
+    Task<User?> CheckUserExistenceByPhone(string phone, CancellationToken cancellationToken);
     
     Task<int> ModifyUserPassword(int id, string password, CancellationToken cancellationToken);
     

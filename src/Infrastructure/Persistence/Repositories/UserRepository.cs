@@ -26,9 +26,14 @@ public class UserRepository(ExpenseTrackerDbContext dbContext) : IUserRepository
         return userResponse.Entity;
     }
 
-    public async Task<User?> CheckUserExistence(string email, string phoneNumber, CancellationToken cancellationToken)
+    public async Task<User?> CheckUserExistenceByEmail(string email, CancellationToken cancellationToken)
     {
-        return await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email || user.PhoneNumber == phoneNumber, cancellationToken);
+        return await dbContext.Users.FirstOrDefaultAsync(user => user.Email == email, cancellationToken);
+    }
+    
+    public async Task<User?> CheckUserExistenceByPhone(string phoneNumber, CancellationToken cancellationToken)
+    {
+        return await dbContext.Users.FirstOrDefaultAsync(user => user.PhoneNumber == phoneNumber, cancellationToken);
     }
 
     public async Task<int> ModifyUserPassword(int userId, string password, CancellationToken cancellationToken)
