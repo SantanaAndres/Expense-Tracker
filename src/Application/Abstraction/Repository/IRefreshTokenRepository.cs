@@ -11,4 +11,6 @@ public interface IRefreshTokenRepository
     
     Task<RefreshToken> RevokeAsync(int id, CancellationToken cancellationToken);
     
+    Task<int> RevokeAllTokensByUserAsync(int userId, CancellationToken cancellationToken);
+    
 }

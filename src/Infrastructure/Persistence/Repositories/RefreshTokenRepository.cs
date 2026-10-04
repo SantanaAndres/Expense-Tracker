@@ -38,4 +38,11 @@ public class RefreshTokenRepository(ExpenseTrackerDbContext dbContext): IRefresh
 
         return refreshToken;
     }
+
+    public async Task<int> RevokeAllTokensByUserAsync(int userId, CancellationToken cancellationToken)
+    {
+        return await dbContext.RefreshTokens
+            .Where(tokens => tokens.UserId == userId)
+            .ExecuteUpdateAsync(t => t.SetProperty(tk => tk.IsRevoked, true));
+    }
 }
