@@ -38,10 +38,10 @@ public static class UserEndpoint
         return result;
     }
     
-    [WolverinePost("/reset-password")]
+    [WolverinePost("/request-change-password")]
     [Tags("User")]
-    [EndpointSummary("Reset user password")]
-    [EndpointDescription("Endpoint that allow to reset your user password by sms or email")]
+    [EndpointSummary("Request a change of password")]
+    [EndpointDescription("Endpoint that allow to request a send of password using a message by sms or email")]
     [AllowAnonymous]
     public static async Task<ResetPasswordHandler.ResetPasswordResponse> ResetUserPassword([FromBody] ResetPasswordCommand command, IMessageBus bus)
     {
@@ -52,7 +52,8 @@ public static class UserEndpoint
     [WolverinePost("/change-password")]
     [Tags("User")]
     [EndpointSummary("Reset user password")]
-    [EndpointDescription("Endpoint that allow to reset your user password by sms or email")]
+    [EndpointDescription("Endpoint that allow to reset your user password")]
+    [Authorize]
     public static async Task<ModifyUserPasswordResponse> PasswordChange([FromBody] ModifyUserPasswordRequest request, IMessageBus bus, ClaimsPrincipal claims)
     {
         ModifyUserPasswordCommand command = new ModifyUserPasswordCommand(claims.GetUserId(),  request.NewPassword);
