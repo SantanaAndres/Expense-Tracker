@@ -1,7 +1,10 @@
-﻿using Application.Dto.Response.User;
+﻿using System.Security.Claims;
+using Application.Dto.Response.User;
 using Application.Feature.User.Add;
 using Application.Feature.User.Get;
+using Application.Feature.User.UpdatePasswordUser;
 using Application.Feature.User.UpdatePasswordUser.ResetPassword;
+using ExpenseTrackerApi.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -51,9 +54,15 @@ public static class UserEndpoint
     [Tags("User")]
     [EndpointSummary("Reset user password")]
     [EndpointDescription("Endpoint that allow to reset your user password by sms or email")]
-    public static async Task<bool> PasswordChange([FromBody] ResetPasswordCommand command, IMessageBus bus)
+    public static async Task<bool> PasswordChange([FromBody] ModifyUserPasswordRequest request, IMessageBus bus, ClaimsPrincipal claims)
     {
+        ModifyUserPasswordCommand command = new ModifyUserPasswordCommand(claims.GetUserId(),  request.NewPassword);
+        
         var result = await bus.InvokeAsync<bool>(command);
+    
         return result;
     }
+    
+    public record ModifyUserPasswordRequest(string NewPassword);
+    
 }
