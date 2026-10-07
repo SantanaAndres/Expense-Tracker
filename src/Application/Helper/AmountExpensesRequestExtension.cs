@@ -11,6 +11,8 @@ public static class AmountExpensesRequestExtension
         return new AmountExpenses
         {
             ExpenseTypeId = amountExpensesRequest.ExpenseTypeId,
+            ExpenseRecordGuid = amountExpensesRequest.AmountExpensesGuid,
+            Cron = amountExpensesRequest.Cron,
             IsActive = amountExpensesRequest.IsActive,
             Description = amountExpensesRequest.Description,
             FrequencyEnum = Enum.Parse<FrequencyEnum>(amountExpensesRequest.Frequency),
