@@ -5,6 +5,7 @@ namespace Domain.Entities;
 public class AmountExpenses
 {
     public Guid ExpenseRecordGuid { get; set; } = new Guid();
+    public string Cron  { get; set; }
     public int ExpenseTypeId { get; set; }
     public bool IsActive { get; set; }
     public string? Description { get; set; }
