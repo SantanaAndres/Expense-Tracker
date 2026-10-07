@@ -1,64 +1,68 @@
-﻿using Application.Abstraction.Repository;
-using Application.Dto.Response.ExpenseRecord;
-using Application.Feature.ExpenseRecord.Add;
-using Application.Helper;
-using Application.Helper.Exceptions;
+﻿using Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using Quartz;
-using Wolverine;
 
 namespace ExpenseTrackerWorker;
 
-public class RegistryFixedCostJob(IFixedCostRepository fixedCostRepository, IMessageBus bus, ILogger<RegistryFixedCostJob> logger): IJob
+[DisallowConcurrentExecution]
+public class RegistryFixedCostJob(ExpenseTrackerDbContext dbContext, ILogger<RegistryFixedCostJob> logger) : IJob
 {
     public async ValueTask Execute(IJobExecutionContext context, CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Running RegistryFixedCostJob");
-        
-        int? fixedCostId = context.MergedJobDataMap.GetInt("FixedCostId");
-        Guid? amountRequestGuid = Guid.Parse(context.MergedJobDataMap.GetString("AmountRequestGuid"));
-        
-        if(fixedCostId is null)
-        {
-            logger.LogError("FixedCostId is null");
-            throw new NullReferenceException("FixedCost not found");
-        }
-        
-        if(amountRequestGuid is null)
-        {
-            logger.LogError("AmountRequestGuid is null");
-            throw new NullReferenceException("AmountRequest Guid not found");
-        }
-        
-        var fixedCostData = await fixedCostRepository.GetFixedCostById(fixedCostId.Value, cancellationToken);
-        
-        
-        if(fixedCostData is null)
-        {
-            logger.LogError("FixedCost not found for Id: {fixedCostId}", fixedCostId);
-            throw new NotFoundException("FixedCost not found");
-        }
 
-        logger.LogInformation("fixedCostData: {fixedCostData}", fixedCostData);
-        
-        var expenseRecord = fixedCostData.AmountExpenses.FirstOrDefault(expenses => expenses.ExpenseRecordGuid == amountRequestGuid);
-        
-        if(expenseRecord is null)
+        var scheduler = context.Scheduler;
+        var fixedCosts = await dbContext.FixedCosts.ToListAsync(cancellationToken);
+
+        foreach (var fixedCost in fixedCosts)
         {
-            logger.LogError("Amount Expense record not found for guid: {amountRequestGuid}", amountRequestGuid);
-            throw new NotFoundException("Expense record not found");
+            foreach (var schedule in fixedCost.AmountExpenses)
+            {
+                if (string.IsNullOrWhiteSpace(schedule.Cron))
+                {
+                    logger.LogWarning("Skipping amount expense {ExpenseRecordGuid} of fixed cost {FixedCostId}: Cron is not configured", schedule.ExpenseRecordGuid, fixedCost.FixedCostId);
+                    continue;
+                }
+
+                var jobKey = new JobKey($"job_{schedule.ExpenseRecordGuid}", "dynamic_jobs");
+                var triggerKey = new TriggerKey($"trigger_{schedule.ExpenseRecordGuid}", "dynamic_triggers");
+
+                var existingTrigger = await scheduler.GetTrigger(triggerKey, cancellationToken) as ICronTrigger;
+
+                if (existingTrigger is not null)
+                {
+                    if (existingTrigger.CronExpressionString != schedule.Cron)
+                    {
+                        logger.LogInformation("Rescheduling trigger {TriggerKey} to cron {Cron}", triggerKey, schedule.Cron);
+
+                        var updatedTrigger = TriggerBuilder.Create()
+                            .WithIdentity(triggerKey)
+                            .WithCronSchedule(schedule.Cron)
+                            .ForJob(jobKey)
+                            .Build();
+
+                        await scheduler.RescheduleJob(triggerKey, updatedTrigger, cancellationToken);
+                    }
+
+                    continue;
+                }
+
+                logger.LogInformation("Scheduling FixedCostJob for fixed cost {FixedCostId} with cron {Cron}", fixedCost.FixedCostId, schedule.Cron);
+
+                var job = JobBuilder.Create<FixedCostJob>()
+                    .WithIdentity(jobKey)
+                    .UsingJobData("FixedCostId", fixedCost.FixedCostId)
+                    .UsingJobData("AmountRequestGuid", schedule.ExpenseRecordGuid.ToString())
+                    .Build();
+
+                var trigger = TriggerBuilder.Create()
+                    .WithIdentity(triggerKey)
+                    .WithCronSchedule(schedule.Cron)
+                    .ForJob(jobKey)
+                    .Build();
+
+                await scheduler.ScheduleJob(job, trigger);
+            }
         }
-        
-        logger.LogInformation("expenseRecord: {expenseRecord}", expenseRecord);
-
-        AddExpenseRecordCommand command = new AddExpenseRecordCommand(fixedCostData.UserId, expenseRecord.ToRequest(), TimeProvider.System.GetLocalNow());
-
-        logger.LogInformation("Sending request to AddExpenseRecordCommand");
-        
-        logger.LogInformation("Command: {command}", command);
-        
-        var result = await bus.InvokeAsync<ExpenseRecordResponse>(command, cancellationToken);
-        
-        logger.LogInformation("Response: {response}", result);
-        
     }
 }
