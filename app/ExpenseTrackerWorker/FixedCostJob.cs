@@ -17,7 +17,7 @@ public class FixedCostJob(IFixedCostRepository fixedCostRepository, IMessageBus 
         int? fixedCostId = context.MergedJobDataMap.GetInt("FixedCostId");
         Guid? amountRequestGuid = Guid.Parse(context.MergedJobDataMap.GetString("AmountRequestGuid"));
 
-        if(fixedCostId is null)
+        if(fixedCostId is null || fixedCostId == 0)
         {
             logger.LogError("FixedCostId is null");
             throw new NullReferenceException("FixedCost not found");

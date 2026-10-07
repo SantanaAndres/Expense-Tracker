@@ -37,7 +37,9 @@ public class RegistryFixedCostJob(ExpenseTrackerDbContext dbContext, ILogger<Reg
 
                         var updatedTrigger = TriggerBuilder.Create()
                             .WithIdentity(triggerKey)
-                            .WithCronSchedule(schedule.Cron)
+                            .WithCronSchedule(schedule.Cron, cron => cron
+                                .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("America/Panama"))
+                                .WithMisfireInstruction(CronTriggerMisfireInstruction.FireAndProceed))
                             .ForJob(jobKey)
                             .Build();
 
@@ -57,7 +59,9 @@ public class RegistryFixedCostJob(ExpenseTrackerDbContext dbContext, ILogger<Reg
 
                 var trigger = TriggerBuilder.Create()
                     .WithIdentity(triggerKey)
-                    .WithCronSchedule(schedule.Cron)
+                    .WithCronSchedule(schedule.Cron, cron => cron
+                        .InTimeZone(TimeZoneInfo.FindSystemTimeZoneById("America/Panama"))
+                        .WithMisfireInstruction(CronTriggerMisfireInstruction.FireAndProceed))
                     .ForJob(jobKey)
                     .Build();
 
