@@ -9,6 +9,8 @@ public static class AmountExpensesExtension
     {
         return new AmountExpensesRequest(
             ExpenseTypeId: amountExpenses.ExpenseTypeId,
+            AmountExpensesGuid:  amountExpenses.ExpenseRecordGuid,
+            Cron: amountExpenses.Cron,
             IsActive: amountExpenses.IsActive,
             Description: amountExpenses.Description,
             Frequency: amountExpenses.FrequencyEnum.ToString(),
