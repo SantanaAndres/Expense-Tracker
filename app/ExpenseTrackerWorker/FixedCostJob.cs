@@ -8,6 +8,7 @@ using Wolverine;
 
 namespace ExpenseTrackerWorker;
 
+[DisallowConcurrentExecution]
 public class FixedCostJob(IFixedCostRepository fixedCostRepository, IMessageBus bus, ILogger<FixedCostJob> logger): IJob
 {
     public async ValueTask Execute(IJobExecutionContext context, CancellationToken cancellationToken = default)
@@ -15,15 +16,15 @@ public class FixedCostJob(IFixedCostRepository fixedCostRepository, IMessageBus 
         logger.LogInformation("Running FixedCostJob");
 
         int? fixedCostId = context.MergedJobDataMap.GetInt("FixedCostId");
-        Guid? amountRequestGuid = Guid.Parse(context.MergedJobDataMap.GetString("AmountRequestGuid"));
+        string rawGuid = context.MergedJobDataMap.GetString("AmountRequestGuid");
 
-        if(fixedCostId is null || fixedCostId == 0)
+        if(fixedCostId == 0)
         {
             logger.LogError("FixedCostId is null");
             throw new NullReferenceException("FixedCost not found");
         }
 
-        if(amountRequestGuid is null)
+        if(string.IsNullOrEmpty(rawGuid) || !Guid.TryParse(rawGuid, out Guid amountRequestGuid))
         {
             logger.LogError("AmountRequestGuid is null");
             throw new NullReferenceException("AmountRequest Guid not found");

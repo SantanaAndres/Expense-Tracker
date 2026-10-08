@@ -6,6 +6,7 @@ using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Quartz;
 using Wolverine;
+using Wolverine.FluentValidation;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -17,6 +18,7 @@ builder.Services.AddTransient<FixedCostJob>();
 
 builder.Services.AddWolverine(opts =>
 {
+    opts.UseFluentValidation();
     opts.Discovery.IncludeAssembly(typeof(AddExpenseRecordCommand).Assembly);
 
     opts.CodeGeneration.AlwaysUseServiceLocationFor<IFixedCostRepository>();
