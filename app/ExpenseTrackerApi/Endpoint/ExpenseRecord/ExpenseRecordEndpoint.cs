@@ -32,7 +32,7 @@ public static class ExpenseRecordEndpoint
     
     
     
-    public record AddExpenseRecord(AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
+    public record AddExpenseRecord(AmountExpensesRequest AmountExpenses, DateTime Date);
     [WolverinePost("/add-expense-record")]
     [Tags("ExpenseRecord")]
     [EndpointSummary("Add new expense record")]
