@@ -4,7 +4,7 @@ using Application.Helper;
 
 namespace Application.Feature.ExpenseRecord.Get;
 
-public record GetExpenseRecordByUserIdQuery(int UserId);
+public record GetExpenseRecordByUserIdQuery(int UserId, DateTime FromDate);
 
 public class GetExpenseRecordByUserIdHandler
 {
@@ -12,7 +12,9 @@ public class GetExpenseRecordByUserIdHandler
     {
         var result = await expenseTypeRepository.GetExpenseRecordsByUserId(query.UserId, cancellationToken);
 
-        return result.Select(
+        var filteredResult = result.Where(expense => expense.Date >= query.FromDate).ToList();
+        
+        return filteredResult.Select(
             r => 
                 new ExpenseRecordResponse(
                     Id: r.ExpenseRecordId,

@@ -2,6 +2,7 @@
 using Application.Dto.Request;
 using Application.Dto.Response.ExpenseRecord;
 using Application.Feature.ExpenseRecord.Add;
+using Application.Feature.ExpenseRecord.Get;
 using Application.Feature.ExpenseRecord.Update;
 using ExpenseTrackerApi.Extension;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,24 @@ namespace ExpenseTrackerApi.Endpoint.ExpenseRecord;
 
 public static class ExpenseRecordEndpoint
 {
+    [WolverineGet("/get-user-expense-record")]
+    [Tags("ExpenseRecord")]
+    [EndpointSummary("Get user-expense record by userId and data range")]
+    [EndpointDescription("Endpoint that allows to get an expense record by userId and data range")]
+    [Authorize]
+    public static async Task<List<ExpenseRecordResponse>> GetExpenseRecordOfUserByRange(
+        IMessageBus bus, 
+        ClaimsPrincipal claims,
+        [FromQuery] GetExpenseRecordByUserIdQuery request
+    )
+    {
+        var result = await bus.InvokeAsync<List<ExpenseRecordResponse>>(request);
+        
+        return result;
+    }
+    
+    
+    
     public record AddExpenseRecord(AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
     [WolverinePost("/add-expense-record")]
     [Tags("ExpenseRecord")]
