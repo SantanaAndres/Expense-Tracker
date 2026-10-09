@@ -11,7 +11,7 @@ public static class AmountExpensesRequestExtension
         return new AmountExpenses
         {
             ExpenseTypeId = amountExpensesRequest.ExpenseTypeId,
-            ExpenseRecordGuid = amountExpensesRequest.AmountExpensesGuid,
+            ExpenseRecordGuid = amountExpensesRequest?.AmountExpensesGuid ?? new Guid(),
             Cron = amountExpensesRequest.Cron,
             IsActive = amountExpensesRequest.IsActive,
             Description = amountExpensesRequest.Description,
