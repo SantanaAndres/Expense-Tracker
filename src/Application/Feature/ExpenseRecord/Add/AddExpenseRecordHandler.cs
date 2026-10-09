@@ -6,7 +6,7 @@ using Application.Helper.Exceptions;
 
 namespace Application.Feature.ExpenseRecord.Add;
 
-public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
+public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTime Date);
 
 public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository)
 {

@@ -27,7 +27,7 @@ public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpen
             {
                 UserId = expenseRecord.UserId,
                 AmountExpenses = expenseRecord.AmountExpenses.ToEntity(),
-                Date = DateTimeOffset.UtcNow
+                Date = DateTime.SpecifyKind(expenseRecord.Date, DateTimeKind.Local)
             },
             cancellationToken
         );
