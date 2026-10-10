@@ -1,4 +1,5 @@
 using Application.Dto.Request;
+using Application.Helper;
 using Domain.Enum;
 using FluentValidation;
 
@@ -11,12 +12,6 @@ public class UpdateExpenseRecordValidator : AbstractValidator<UpdateExpenseRecor
         RuleFor(expenseRecord => expenseRecord.ExpenseRecordId).NotEmpty().WithMessage("Expense Record Id is required");
         RuleFor(expenseRecord => expenseRecord.UserId).NotEmpty().WithMessage("User Id is required");
         RuleFor(expenseRecord => expenseRecord.AmountExpenses).NotEmpty().WithMessage("Amounts are required");
-        RuleFor(expenseRecord => expenseRecord.AmountExpenses).Must(BeValidAmount).WithMessage("An amount must be greater than 0");
-    }
-
-    private static bool BeValidAmount(AmountExpensesRequest amountExpenses)
-    {
-        bool isValid = !(amountExpenses is { Amount: <= 0 } || !Enum.TryParse<FrequencyEnum>(amountExpenses.Frequency, true, out var _));
-        return isValid;
+        RuleFor(expenseRecord => expenseRecord.AmountExpenses).Must(BeValidAmounts.Validate).WithMessage("An amount must be greater than 0");
     }
 }
