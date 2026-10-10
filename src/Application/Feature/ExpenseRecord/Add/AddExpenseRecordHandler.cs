@@ -3,10 +3,11 @@ using Application.Dto.Request;
 using Application.Dto.Response.ExpenseRecord;
 using Application.Helper;
 using Application.Helper.Exceptions;
+using Domain.Entities;
 
 namespace Application.Feature.ExpenseRecord.Add;
 
-public record AddExpenseRecordCommand(int UserId, AmountExpensesRequest AmountExpenses, DateTime Date);
+public record AddExpenseRecordCommand(int UserId, AmountExpenses AmountExpenses, DateTime Date);
 
 public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository, IUserRepository userRepository)
 {
@@ -20,7 +21,7 @@ public class AddExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepos
         
         return new ExpenseRecordResponse(
             result.ExpenseRecordId,
-            result.AmountExpenses.ToRequest(),
+            result.AmountExpenses,
             result.Date
         ) ;
     }

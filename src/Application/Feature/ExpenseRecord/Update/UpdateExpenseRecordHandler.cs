@@ -2,10 +2,11 @@ using Application.Abstraction.Repository;
 using Application.Dto.Request;
 using Application.Dto.Response.ExpenseRecord;
 using Application.Helper;
+using Domain.Entities;
 
 namespace Application.Feature.ExpenseRecord.Update;
 
-public record UpdateExpenseRecordCommand(int ExpenseRecordId, int UserId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
+public record UpdateExpenseRecordCommand(int ExpenseRecordId, int UserId, AmountExpenses AmountExpenses, DateTimeOffset Date);
 
 public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRepository)
 {
@@ -23,7 +24,7 @@ public class UpdateExpenseRecordHandler(IExpenseRecordRepository expenseRecordRe
         
         return new ExpenseRecordResponse(
             Id: result.ExpenseRecordId, 
-            AmountExpenses: result.AmountExpenses.ToRequest(), 
+            AmountExpenses: result.AmountExpenses, 
             Date: result.Date);
     }
 }

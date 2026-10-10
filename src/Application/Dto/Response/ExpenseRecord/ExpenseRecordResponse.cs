@@ -5,6 +5,6 @@ namespace Application.Dto.Response.ExpenseRecord;
 
 public record ExpenseRecordResponse(
     int Id,
-    AmountExpensesRequest AmountExpenses,
+    AmountExpenses AmountExpenses,
     DateTimeOffset  Date
     );

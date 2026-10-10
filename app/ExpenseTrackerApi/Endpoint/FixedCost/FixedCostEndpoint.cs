@@ -4,6 +4,7 @@ using Application.Dto.Response.FixedCost;
 using Application.Feature.FixedCost.Add;
 using Application.Feature.FixedCost.Get;
 using Application.Feature.FixedCost.Update;
+using Domain.Entities;
 using ExpenseTrackerApi.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -39,7 +40,7 @@ public class FixedCostEndpoint
     [EndpointDescription("Endpoint that allow to add a new fixed cost")]
     [Authorize]
     public static async Task<FixedCostByUserResponse> AddNewFixedCost(
-        [FromBody] List<AmountExpensesRequest> amountExpenses,
+        [FromBody] List<AmountExpenses> amountExpenses,
         ClaimsPrincipal claims,
         IMessageBus bus
         )
@@ -53,8 +54,7 @@ public class FixedCostEndpoint
     
     
     
-    public record UpdateFixedCostRequest(int FixedCostId, List<AmountExpensesRequest> AmountExpenses);
-    
+    public record UpdateFixedCostRequest(int FixedCostId, List<AmountExpenses> AmountExpenses);
     [WolverinePut("/modify-fixed-cost")]
     [Tags("FixedCosts")]
     [EndpointSummary("Modify fixed cost")]
@@ -66,6 +66,7 @@ public class FixedCostEndpoint
         IMessageBus bus
         )
     {
+        
         var command = new UpdateFixedCostCommand(request.FixedCostId, claims.GetUserId(), request.AmountExpenses);
         
         return await bus.InvokeAsync<FixedCostByUserResponse>(command);

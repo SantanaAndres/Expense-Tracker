@@ -3,10 +3,11 @@ using Application.Dto.Request;
 using Application.Dto.Response.FixedCost;
 using Application.Helper;
 using Application.Helper.Exceptions;
+using Domain.Entities;
 
 namespace Application.Feature.FixedCost.Update;
 
-public record UpdateFixedCostCommand(int FixedCostId, int userId, List<AmountExpensesRequest> AmountExpenses);
+public record UpdateFixedCostCommand(int FixedCostId, int userId, List<AmountExpenses> AmountExpenses);
 
 public class UpdateFixedCostHandler
 {

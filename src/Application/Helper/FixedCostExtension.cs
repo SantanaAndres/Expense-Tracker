@@ -9,7 +9,7 @@ public static class FixedCostExtension
     {
         return new FixedCostByUserResponse(
             Id: fixedCost.FixedCostId,
-            AmountExpenses: fixedCost.AmountExpenses.Select(a => a.ToRequest()).ToList()
+            AmountExpenses: fixedCost.AmountExpenses
         );
     }
 }

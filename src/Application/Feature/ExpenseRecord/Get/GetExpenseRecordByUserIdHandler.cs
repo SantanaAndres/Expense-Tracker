@@ -18,7 +18,7 @@ public class GetExpenseRecordByUserIdHandler
             r => 
                 new ExpenseRecordResponse(
                     Id: r.ExpenseRecordId,
-                    AmountExpenses: r.AmountExpenses.ToRequest(),
+                    AmountExpenses: r.AmountExpenses,
                     Date: r.Date
                     )
             ).ToList();

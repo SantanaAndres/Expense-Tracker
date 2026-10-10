@@ -24,7 +24,7 @@ public class FixedCostRepository(ExpenseTrackerDbContext dbContext) : IFixedCost
         var entity = new FixedCost
         {
             UserId = fixedCost.UserId,
-            AmountExpenses = fixedCost.AmountExpenses.Select(f => f.ToEntity()).ToList()
+            AmountExpenses = fixedCost.AmountExpenses
         };
         var result = await dbContext.FixedCosts.AddAsync(entity, cancellationToken);
         await dbContext.SaveChangesAsync(cancellationToken);
@@ -34,7 +34,7 @@ public class FixedCostRepository(ExpenseTrackerDbContext dbContext) : IFixedCost
     public async Task<FixedCost> ModifyFixedCostById(UpdateFixedCostCommand fixedCost, CancellationToken cancellationToken)
     {
         var result = await dbContext.FixedCosts.FirstAsync(f => f.FixedCostId == fixedCost.FixedCostId, cancellationToken);
-        result.AmountExpenses = fixedCost.AmountExpenses.Select(f => f.ToEntity()).ToList();
+        result.AmountExpenses = fixedCost.AmountExpenses;
         await dbContext.SaveChangesAsync(cancellationToken);
         return result;
     }

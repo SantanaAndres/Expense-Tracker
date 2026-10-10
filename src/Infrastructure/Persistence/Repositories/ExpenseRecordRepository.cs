@@ -26,7 +26,7 @@ public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpen
             new ExpenseRecord
             {
                 UserId = expenseRecord.UserId,
-                AmountExpenses = expenseRecord.AmountExpenses.ToEntity(),
+                AmountExpenses = expenseRecord.AmountExpenses,
                 Date = DateTime.SpecifyKind(expenseRecord.Date, DateTimeKind.Local)
             },
             cancellationToken
@@ -40,7 +40,7 @@ public class ExpenseRecordRepository(ExpenseTrackerDbContext dbContext) : IExpen
     public async Task<ExpenseRecord> ModifyExpenseRecordById(UpdateExpenseRecordCommand expenseRecord, CancellationToken cancellationToken)
     {
         var result =  await dbContext.ExpenseRecords.FirstOrDefaultAsync(expense => expense.ExpenseRecordId == expenseRecord.ExpenseRecordId, cancellationToken);
-        result.AmountExpenses = expenseRecord.AmountExpenses.ToEntity();
+        result.AmountExpenses = expenseRecord.AmountExpenses;
         result.Date = DateTimeOffset.UtcNow;
         await dbContext.SaveChangesAsync(cancellationToken);
         return result;

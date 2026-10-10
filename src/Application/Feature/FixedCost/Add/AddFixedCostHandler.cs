@@ -3,10 +3,11 @@ using Application.Dto.Request;
 using Application.Dto.Response.FixedCost;
 using Application.Helper;
 using Application.Helper.Exceptions;
+using Domain.Entities;
 
 namespace Application.Feature.FixedCost.Add;
 
-public record AddFixedCostCommand(int UserId, List<AmountExpensesRequest> AmountExpenses);
+public record AddFixedCostCommand(int UserId, List<AmountExpenses> AmountExpenses);
 
 public class AddFixedCostHandler(IFixedCostRepository fixedCostRepository, IUserRepository userRepository)
 {
