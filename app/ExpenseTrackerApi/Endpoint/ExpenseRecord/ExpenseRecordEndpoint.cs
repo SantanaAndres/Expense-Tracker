@@ -4,6 +4,7 @@ using Application.Dto.Response.ExpenseRecord;
 using Application.Feature.ExpenseRecord.Add;
 using Application.Feature.ExpenseRecord.Get;
 using Application.Feature.ExpenseRecord.Update;
+using Domain.Entities;
 using ExpenseTrackerApi.Extension;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +33,7 @@ public static class ExpenseRecordEndpoint
     
     
     
-    public record AddExpenseRecord(AmountExpensesRequest AmountExpenses, DateTime Date);
+    public record AddExpenseRecord(AmountExpenses AmountExpenses, DateTime Date);
     [WolverinePost("/add-expense-record")]
     [Tags("ExpenseRecord")]
     [EndpointSummary("Add new expense record")]
@@ -44,14 +45,14 @@ public static class ExpenseRecordEndpoint
         [FromBody] AddExpenseRecord request
         )
     {
-        var command = new AddExpenseRecordCommand(claims.GetUserId(),request.AmountExpenses, request.Date);
+        var command = new AddExpenseRecordCommand(claims.GetUserId(), request.AmountExpenses, request.Date);
         
         var result = await bus.InvokeAsync<ExpenseRecordResponse>(command);
         
         return result;
     }
 
-    public record UpdateExpenseRecord(int ExpenseRecordId, AmountExpensesRequest AmountExpenses, DateTimeOffset Date);
+    public record UpdateExpenseRecord(int ExpenseRecordId, AmountExpenses AmountExpenses, DateTimeOffset Date);
     [WolverinePut("/modify-expense-record")]
     [Tags("ExpenseRecord")]
     [EndpointSummary("Modify expense record")]
