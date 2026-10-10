@@ -35,6 +35,12 @@ builder.Host.UseWolverine(opts =>
 
 });
 
+builder.Services.ConfigureSystemTextJsonForWolverineOrMinimalApi(o =>
+{
+    o.SerializerOptions.Converters.Add(
+        new System.Text.Json.Serialization.JsonStringEnumConverter());
+});
+
 builder.Services.AddWolverineHttp();
 
 builder.Services.AddDbContext<ExpenseTrackerDbContext>(options =>
