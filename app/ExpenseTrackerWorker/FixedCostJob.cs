@@ -50,7 +50,7 @@ public class FixedCostJob(IFixedCostRepository fixedCostRepository, IMessageBus 
 
         logger.LogInformation("expenseRecord: {expenseRecord}", expenseRecord);
 
-        AddExpenseRecordCommand command = new AddExpenseRecordCommand(fixedCostData.UserId, expenseRecord.ToRequest(), DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local));
+        AddExpenseRecordCommand command = new AddExpenseRecordCommand(fixedCostData.UserId, expenseRecord, DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Local));
 
         logger.LogInformation("Sending request to AddExpenseRecordCommand");
 
