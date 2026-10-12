@@ -18,7 +18,7 @@ public class GetUserByEmailPasswordQueryHandler(
 {
     public async Task<LoginResponse> HandleAsync(GetUserByEmailPasswordQuery query, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Handling GetUserByEmailPasswordQuery");
+        logger.LogInformation("Handling GetUserByEmailPasswordQuery with request {@query}", query);
         
         var user =  await userRepository.CheckUSerEmailAndPassword(query.Email, cancellationToken);
 
