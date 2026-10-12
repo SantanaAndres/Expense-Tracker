@@ -12,11 +12,11 @@
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="10.0.12" />
         <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.12" />
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
-        <PackageReference Include="Quartz" Version="4.3.0" />
+        <PackageReference Include="Quartz" Version="4.4.0" />
         <PackageReference Include="Serilog" Version="4.4.0" />
-        <PackageReference Include="WolverineFx.FluentValidation" Version="6.45.0" />
-        <PackageReference Include="WolverineFx.Http" Version="6.45.0" />
-        <PackageReference Include="WolverineFx.RuntimeCompilation" Version="6.45.0" />
+        <PackageReference Include="WolverineFx.FluentValidation" Version="6.48.3" />
+        <PackageReference Include="WolverineFx.Http" Version="6.48.3" />
+        <PackageReference Include="WolverineFx.RuntimeCompilation" Version="6.48.3" />
     </ItemGroup>
 
     <ItemGroup>

@@ -8,8 +8,8 @@
 
     <ItemGroup>
       <PackageReference Include="Serilog" Version="4.4.0" />
-      <PackageReference Include="WolverineFx.FluentValidation" Version="6.45.0" />
-      <PackageReference Include="WolverineFx.Http" Version="6.45.0" />
+      <PackageReference Include="WolverineFx.FluentValidation" Version="6.48.3" />
+      <PackageReference Include="WolverineFx.Http" Version="6.48.3" />
     </ItemGroup>
 
 </Project>
